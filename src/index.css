@@ -1,0 +1,73 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+:root {
+  color-scheme: dark;
+  user-select: none;
+  -webkit-user-select: none;
+}
+
+html, body, #root {
+  margin: 0;
+  padding: 0;
+  width: 100%;
+  height: 100%;
+  background: transparent !important;
+  overflow: hidden;
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+/* Custom modern scrollbars for EVRY panels */
+.evry-scroll {
+  overflow-y: overlay;
+  overflow-y: auto;
+  scrollbar-width: thin;
+  scrollbar-color: #383838 transparent;
+}
+
+.evry-scroll::-webkit-scrollbar {
+  width: 6px;
+  height: 6px;
+}
+
+.evry-scroll::-webkit-scrollbar-track {
+  background: rgba(0, 0, 0, 0.2);
+  border-radius: 9999px;
+  margin: 4px 0;
+}
+
+.evry-scroll::-webkit-scrollbar-thumb {
+  background: #333333;
+  border-radius: 9999px;
+  border: 1px solid rgba(255, 255, 255, 0.05);
+  transition: background 0.2s ease;
+}
+
+.evry-scroll::-webkit-scrollbar-thumb:hover {
+  background: #F47735;
+}
+
+/* Global scroll styling */
+::-webkit-scrollbar {
+  width: 6px;
+  height: 6px;
+}
+
+::-webkit-scrollbar-track {
+  background: rgba(0, 0, 0, 0.2);
+  border-radius: 9999px;
+  margin: 4px 0;
+}
+
+::-webkit-scrollbar-thumb {
+  background: #333333;
+  border-radius: 9999px;
+  border: 1px solid rgba(255, 255, 255, 0.05);
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: #F47735;
+}

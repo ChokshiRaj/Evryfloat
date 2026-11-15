@@ -1,0 +1,85 @@
+[package]
+name = "evry"
+version = "0.1.0"
+description = "EVRY - a floating desktop command center for Windows"
+authors = ["your name"]
+edition = "2024"
+rust-version = "1.85"
+
+[lib]
+# The `_lib` suffix is needed to keep the library name unique from the binary name.
+# This is a known Windows issue, see https://github.com/rust-lang/cargo/issues/8519
+# Keep this in sync with `tauri_app_lib::run()` in main.rs.
+name = "tauri_app_lib"
+crate-type = ["staticlib", "cdylib", "rlib"]
+
+[build-dependencies]
+tauri-build = { version = "2", features = [] }
+
+[dependencies]
+# ── Tauri core and plugins ─────────────────────────────────────────────
+tauri = { version = "2", features = ["tray-icon"] }
+tauri-plugin-opener = "2"
+tauri-plugin-dialog = "2"
+tauri-plugin-drag = "2"
+tauri-plugin-global-shortcut = "2.4.1"
+tauri-plugin-clipboard-manager = "2.5.0"
+tauri-plugin-autostart = "2"
+
+# ── Serialization and errors ───────────────────────────────────────────
+serde = { version = "1", features = ["derive"] }
+serde_json = "1"
+thiserror = "2.0.21"
+
+# ── Storage ────────────────────────────────────────────────────────────
+rusqlite = { version = "0.42.0", features = ["bundled"] }
+
+# ── Async and time ─────────────────────────────────────────────────────
+tokio = { version = "1.54.1", features = ["time", "fs", "net", "io-util", "macros"] }
+chrono = { version = "0.4", default-features = false, features = ["clock", "std"] }
+
+# ── Hashing, IDs, file utilities ───────────────────────────────────────
+blake3 = "1.8.7"
+sha2 = "0.11.1"
+uuid = { version = "1", features = ["v4"] }
+infer = "0.19"
+walkdir = "2.5.0"
+zip = { version = "2.2", default-features = false, features = ["deflate"] }
+image = { version = "0.25", default-features = false, features = ["png", "jpeg", "webp"] }
+base64 = "0.22"
+
+# ── System info ────────────────────────────────────────────────────────
+sysinfo = "0.40.3"
+arboard = "3.7"
+
+# ── Windows native APIs ────────────────────────────────────────────────
+clipboard-win = "5"
+
+windows-sys = { version = "0.61.2", features = [
+    "Win32_Foundation",
+    "Win32_Storage_FileSystem",
+    "Win32_System_Com",
+    "Win32_System_DataExchange",
+    "Win32_System_LibraryLoader",   # <- add (RtlGetVersion lookup in window.rs)
+    "Win32_System_Power",
+    "Win32_System_ProcessStatus",
+    "Win32_System_Threading",
+    "Win32_UI_Input_KeyboardAndMouse",
+    "Win32_UI_Shell",
+    "Win32_UI_WindowsAndMessaging",
+] }
+
+windows = { version = "0.60.0", features = [
+    "Foundation",
+    "Media_Control",                # SMTC (now playing)
+] }
+
+# Read the optimization guideline for more details:
+# https://tauri.app/concept/size/#cargo-configuration
+[profile.release]
+codegen-units = 1
+lto = true
+opt-level = 3
+strip = true
+# panic = "abort" was removed on purpose: with it, a panic in the clipboard
+# watcher or Pomodoro ticker would close the whole app.
