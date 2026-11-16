@@ -79,13 +79,12 @@ export const FloatingWidgets: React.FC<FloatingWidgetsProps> = ({ onBack }) => {
             {daysArray.map((day, idx) => (
               <span
                 key={idx}
-                className={`py-0.5 rounded ${
-                  day === currentDay
+                className={`py-0.5 rounded ${day === currentDay
                     ? "bg-evry-accent text-white font-bold"
                     : day
-                    ? "text-evry-text hover:bg-evry-surfaceHover"
-                    : "opacity-0"
-                }`}
+                      ? "text-evry-text hover:bg-evry-surfaceHover"
+                      : "opacity-0"
+                  }`}
               >
                 {day || ""}
               </span>
