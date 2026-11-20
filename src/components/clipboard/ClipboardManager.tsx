@@ -13,8 +13,6 @@ import {
   Mail,
   Palette,
   FileText,
-  Pause,
-  Play,
   CornerDownLeft,
   Image as ImageIcon,
   Copy,
@@ -58,7 +56,6 @@ export const ClipboardManager: React.FC<ClipboardManagerProps> = ({ onBack }) =>
   const [items, setItems] = useState<ClipboardItem[]>([]);
   const [filterType, setFilterType] = useState<string>("all");
   const [focusedIndex, setFocusedIndex] = useState(0);
-  const [isPaused, setIsPaused] = useState(false);
   const [isDraggingOver, setIsDraggingOver] = useState(false);
   const [previewImage, setPreviewImage] = useState<{
     details: ClipboardImageDetails;
@@ -75,8 +72,6 @@ export const ClipboardManager: React.FC<ClipboardManagerProps> = ({ onBack }) =>
     try {
       const history = await invoke<ClipboardItem[]>("get_clipboard_history");
       setItems(history);
-      const paused = await invoke<boolean>("get_clipboard_pause_status");
-      setIsPaused(paused);
 
       // Pre-fetch image details for any image items
       const imageItems = history.filter((i) => i.content_type === "image");
@@ -191,15 +186,6 @@ export const ClipboardManager: React.FC<ClipboardManagerProps> = ({ onBack }) =>
       await loadHistory();
     } catch (err) {
       console.error("Clear error:", err);
-    }
-  };
-
-  const handleTogglePause = async () => {
-    try {
-      const next = await invoke<boolean>("toggle_clipboard_pause");
-      setIsPaused(next);
-    } catch (err) {
-      console.error("Toggle pause error:", err);
     }
   };
 
@@ -391,20 +377,6 @@ export const ClipboardManager: React.FC<ClipboardManagerProps> = ({ onBack }) =>
               {dropFeedback}
             </span>
           )}
-
-          <button
-            onClick={handleTogglePause}
-            className={cn(
-              "px-2 py-1 rounded-lg border text-[11px] font-medium flex items-center space-x-1 transition-all",
-              isPaused
-                ? "bg-amber-500/10 border-amber-500/40 text-amber-400"
-                : "bg-evry-surface border-evry-border text-evry-muted hover:text-white"
-            )}
-            title={isPaused ? "Resume Clipboard Capture" : "Pause Clipboard Capture"}
-          >
-            {isPaused ? <Play className="w-3 h-3" /> : <Pause className="w-3 h-3" />}
-            <span>{isPaused ? "Paused" : "Active"}</span>
-          </button>
 
           {items.some((i) => !i.is_pinned) && (
             <button
