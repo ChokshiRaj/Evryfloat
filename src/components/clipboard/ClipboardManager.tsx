@@ -56,7 +56,6 @@ const globalImageCache = new Map<string, ClipboardImageDetails>();
 
 export const ClipboardManager: React.FC<ClipboardManagerProps> = ({ onBack }) => {
   const [items, setItems] = useState<ClipboardItem[]>([]);
-  const [search, setSearch] = useState("");
   const [filterType, setFilterType] = useState<string>("all");
   const [focusedIndex, setFocusedIndex] = useState(0);
   const [isPaused, setIsPaused] = useState(false);
@@ -70,7 +69,6 @@ export const ClipboardManager: React.FC<ClipboardManagerProps> = ({ onBack }) =>
   const [dropFeedback, setDropFeedback] = useState<string | null>(null);
 
   const listRef = useRef<HTMLDivElement>(null);
-  const searchRef = useRef<HTMLInputElement>(null);
   const dragStartPos = useRef<{ x: number; y: number } | null>(null);
 
   const loadHistory = useCallback(async () => {
@@ -104,7 +102,6 @@ export const ClipboardManager: React.FC<ClipboardManagerProps> = ({ onBack }) =>
 
   useEffect(() => {
     loadHistory();
-    searchRef.current?.focus();
 
     // Listen for new items added by watcher or drops
     let unlisten: (() => void) | null = null;
@@ -136,20 +133,7 @@ export const ClipboardManager: React.FC<ClipboardManagerProps> = ({ onBack }) =>
     if (filterType === "color" && item.content_type !== "color") return false;
     if (filterType === "url" && item.content_type !== "url" && item.content_type !== "email")
       return false;
-
-    // Search query
-    if (!search) return true;
-    const query = search.toLowerCase();
-    if (item.content_type === "image") {
-      return (
-        query.includes("img") ||
-        query.includes("image") ||
-        query.includes("screenshot") ||
-        query.includes("png") ||
-        item.content.toLowerCase().includes(query)
-      );
-    }
-    return item.content.toLowerCase().includes(query);
+    return true;
   });
 
   const sortedItems = [...filteredItems].sort((a, b) => {
@@ -434,40 +418,21 @@ export const ClipboardManager: React.FC<ClipboardManagerProps> = ({ onBack }) =>
         </div>
       </div>
 
-      {/* Search Input Bar & Category Filters */}
-      <div className="py-2 space-y-2">
-        <div className="px-3 py-1.5 rounded-xl bg-evry-surface border border-evry-border flex items-center space-x-2">
-          <Clipboard className="w-3.5 h-3.5 text-evry-accent flex-shrink-0" />
-          <input
-            ref={searchRef}
-            type="text"
-            value={search}
-            onChange={(e) => setSearch(e.target.value)}
-            placeholder="Search clips (text, screenshot, link, color)..."
-            className="w-full bg-transparent border-none text-xs text-white placeholder-evry-muted focus:outline-none"
-          />
-          {search && (
-            <button onClick={() => setSearch("")} className="text-evry-muted hover:text-white">
-              <X className="w-3 h-3" />
-            </button>
+      {/* Category Filter Pills */}
+      <div className="py-2.5 flex items-center space-x-1.5 overflow-x-auto no-scrollbar text-[11px]">
+        <button
+          onClick={() => setFilterType("all")}
+          className={cn(
+            "px-2 py-0.5 rounded-lg border transition-all flex items-center space-x-1 font-medium",
+            filterType === "all"
+              ? "bg-evry-accent/20 border-evry-accent/50 text-evry-accent"
+              : "bg-evry-surface/60 border-evry-border text-evry-muted hover:text-white"
           )}
-        </div>
-
-        {/* Filter Pills */}
-        <div className="flex items-center space-x-1.5 overflow-x-auto pb-0.5 no-scrollbar text-[11px]">
-          <button
-            onClick={() => setFilterType("all")}
-            className={cn(
-              "px-2 py-0.5 rounded-lg border transition-all flex items-center space-x-1 font-medium",
-              filterType === "all"
-                ? "bg-evry-accent/20 border-evry-accent/50 text-evry-accent"
-                : "bg-evry-surface/60 border-evry-border text-evry-muted hover:text-white"
-            )}
-          >
-            <Layers className="w-3 h-3" />
-            <span>All</span>
-            <span className="text-[10px] opacity-70">({counts.all})</span>
-          </button>
+        >
+          <Layers className="w-3 h-3" />
+          <span>All</span>
+          <span className="text-[10px] opacity-70">({counts.all})</span>
+        </button>
 
           <button
             onClick={() => setFilterType("image")}
@@ -525,7 +490,6 @@ export const ClipboardManager: React.FC<ClipboardManagerProps> = ({ onBack }) =>
             <span className="text-[10px] opacity-70">({counts.url})</span>
           </button>
         </div>
-      </div>
 
       {/* Clips List */}
       <div ref={listRef} className="flex-1 min-h-0 evry-scroll space-y-1.5 py-1">
