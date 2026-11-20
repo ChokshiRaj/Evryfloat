@@ -12,6 +12,10 @@ import {
   CheckCircle2,
   AlertCircle,
   Sparkles,
+  Eye,
+  EyeOff,
+  ShieldAlert,
+  Sliders,
 } from "lucide-react";
 import { cn } from "../../lib/utils";
 
@@ -19,9 +23,21 @@ interface SettingsViewProps {
   onBack: () => void;
 }
 
+interface ProtectionInfo {
+  success: boolean;
+  is_fallback: boolean;
+  build_number: number;
+  mode: string;
+}
+
 export const SettingsView: React.FC<SettingsViewProps> = ({ onBack }) => {
   const [autostartEnabled, setAutostartEnabled] = useState(false);
   const [hotkeyStatus, setHotkeyStatus] = useState<string | null>(null);
+  const [shieldActive, setShieldActive] = useState(false);
+  const [protectionInfo, setProtectionInfo] = useState<ProtectionInfo | null>(null);
+  const [opacity, setOpacity] = useState(() => {
+    return Number(localStorage.getItem("evry_overlay_opacity")) || 95;
+  });
   const [autoMeetingMode, setAutoMeetingMode] = useState(() => {
     return localStorage.getItem("evry_auto_meeting_mode") === "true";
   });
@@ -43,6 +59,23 @@ export const SettingsView: React.FC<SettingsViewProps> = ({ onBack }) => {
       .then(setHotkeyStatus)
       .catch(console.error);
   }, []);
+
+  const toggleShield = () => {
+    const nextState = !shieldActive;
+    invoke<ProtectionInfo>("set_screen_capture_protection", { enable: nextState })
+      .then((res) => {
+        setShieldActive(nextState && res.success);
+        setProtectionInfo(res);
+      })
+      .catch((err) => {
+        console.error("Failed to toggle capture protection:", err);
+      });
+  };
+
+  const handleOpacityChange = (val: number) => {
+    setOpacity(val);
+    localStorage.setItem("evry_overlay_opacity", String(val));
+  };
 
   const handleToggleAutostart = async () => {
     try {
@@ -181,7 +214,7 @@ export const SettingsView: React.FC<SettingsViewProps> = ({ onBack }) => {
             <div>
               <span className="text-xs font-semibold text-evry-text block">Auto Meeting Mode</span>
               <span className="text-[10px] text-evry-muted block">
-                Suggest Privacy Shield & Prompter during Zoom/Teams calls
+                Suggest Prompter & meeting tools during Zoom/Teams calls
               </span>
             </div>
           </div>
@@ -198,7 +231,88 @@ export const SettingsView: React.FC<SettingsViewProps> = ({ onBack }) => {
           </button>
         </div>
 
-        {/* 4. Storage & Retention Policies */}
+        {/* 4. Hardware Privacy Shield & Screen Capture Protection */}
+        <div className="p-3 rounded-xl bg-evry-surface border border-evry-border space-y-2.5">
+          <div className="flex items-center justify-between">
+            <div className="flex items-center space-x-2.5">
+              <div
+                className={cn(
+                  "w-7 h-7 rounded-lg border flex items-center justify-center transition-all",
+                  shieldActive
+                    ? "bg-emerald-500/15 border-emerald-500/50 text-emerald-400"
+                    : "bg-evry-bg border-evry-border text-evry-muted"
+                )}
+              >
+                {shieldActive ? <EyeOff className="w-3.5 h-3.5" /> : <Eye className="w-3.5 h-3.5" />}
+              </div>
+              <div>
+                <span className="text-xs font-semibold text-evry-text block">
+                  Hardware Screen Capture Shield
+                </span>
+                <span className="text-[10px] text-evry-muted block">
+                  Hides EVRY window from Teams, Zoom, OBS, and screenshots
+                </span>
+              </div>
+            </div>
+
+            <button
+              onClick={toggleShield}
+              className={cn(
+                "px-3 py-1.5 rounded-lg text-xs font-semibold transition-all active:scale-95",
+                shieldActive
+                  ? "bg-emerald-500 text-black shadow-glow font-bold"
+                  : "bg-evry-bg hover:bg-evry-surfaceHover border border-evry-border text-evry-text"
+              )}
+            >
+              {shieldActive ? "Shield Active" : "Enable Shield"}
+            </button>
+          </div>
+
+          {/* Opacity Slider */}
+          <div className="pt-1 space-y-1.5 border-t border-evry-border/60">
+            <div className="flex items-center justify-between text-[11px] text-evry-muted">
+              <span className="flex items-center space-x-1.5">
+                <Sliders className="w-3 h-3 text-evry-accent" />
+                <span className="text-evry-text">Overlay Opacity</span>
+              </span>
+              <span className="font-mono text-evry-accent font-semibold">{opacity}%</span>
+            </div>
+            <input
+              type="range"
+              min="40"
+              max="100"
+              value={opacity}
+              onChange={(e) => handleOpacityChange(Number(e.target.value))}
+              className="w-full h-1.5 bg-evry-bg rounded-lg appearance-none cursor-pointer accent-evry-accent"
+            />
+          </div>
+
+          {/* Hardware Diagnostic Info */}
+          <div className="p-2 rounded-lg bg-evry-bg/60 border border-evry-border/70 flex items-start space-x-2 text-[10px] text-evry-muted">
+            <ShieldAlert className="w-3.5 h-3.5 text-evry-accent flex-shrink-0 mt-0.5" />
+            <div className="min-w-0">
+              <div className="flex items-center space-x-1.5">
+                <span className="font-medium text-evry-text">Windows Display Affinity</span>
+                {protectionInfo?.build_number ? (
+                  <span className="font-mono text-[9px] px-1 bg-evry-surface rounded border border-evry-border text-evry-muted">
+                    Build {protectionInfo.build_number}
+                  </span>
+                ) : null}
+              </div>
+              {protectionInfo?.is_fallback ? (
+                <p className="mt-0.5 leading-relaxed text-amber-400 text-[10px]">
+                  Build &lt; 19041 fallback: Uses <code className="font-mono text-[9px]">WDA_MONITOR</code> (solid black box during screen share).
+                </p>
+              ) : (
+                <p className="mt-0.5 leading-relaxed text-evry-muted text-[10px]">
+                  Uses native <code className="font-mono text-[9px] text-cyan-400">SetWindowDisplayAffinity(WDA_EXCLUDEFROMCAPTURE)</code>. Completely invisible on captured video streams.
+                </p>
+              )}
+            </div>
+          </div>
+        </div>
+
+        {/* 5. Storage & Retention Policies */}
         <div className="p-3 rounded-xl bg-evry-surface border border-evry-border space-y-2.5">
           <div className="flex items-center justify-between">
             <div className="flex items-center space-x-2.5">

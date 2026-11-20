@@ -6,12 +6,10 @@ import {
   Search,
   Sliders,
   FileText,
-  Eye,
   ChevronDown,
   Sparkles,
   Command,
   GripHorizontal,
-  LayoutGrid,
   ClipboardList,
   Timer,
   Music,
@@ -30,8 +28,7 @@ import { useClock } from "../../hooks/useClock";
 import { CommandSearch } from "../commands/CommandSearch";
 import { QuickActions } from "../actions/QuickActions";
 import { NotesReminders } from "../notes/NotesReminders";
-import { PrivacyOverlay } from "../privacy/PrivacyOverlay";
-import { FloatingWidgets } from "../widgets/FloatingWidgets";
+import { Teleprompter } from "../teleprompter/Teleprompter";
 import { ClipboardManager } from "../clipboard/ClipboardManager";
 import { PomodoroTimer } from "../pomodoro/PomodoroTimer";
 import { MediaControls } from "../media/MediaControls";
@@ -471,14 +468,14 @@ export const Notch: React.FC = () => {
             <div
               onClick={(e) => {
                 e.stopPropagation();
-                handleOpenModule("privacy");
+                handleOpenModule("teleprompter");
               }}
               className="flex items-center space-x-1.5 px-2.5 py-0.5 rounded-full bg-purple-500/15 border border-purple-500/40 text-purple-300 hover:border-purple-400 cursor-pointer transition-all"
-              title="Meeting Active — Click for Privacy Shield & Prompter"
+              title="Meeting Active — Click for Teleprompter"
             >
-              <Eye className="w-3.5 h-3.5 text-purple-400 animate-pulse" />
+              <Video className="w-3.5 h-3.5 text-purple-400 animate-pulse" />
               <span className="text-xs font-medium font-semibold">{context.badge_label}</span>
-              <span className="text-[10px] text-purple-400/80 uppercase font-bold">Meeting Mode</span>
+              <span className="text-[10px] text-purple-400/80 uppercase font-bold">Teleprompter</span>
             </div>
           ) : pomodoro && pomodoro.is_running ? (
             /* Pomodoro Live Activity in Pill */
@@ -567,24 +564,6 @@ export const Notch: React.FC = () => {
             <span className="text-[10px]">{shelfItems.length}</span>
           </button>
 
-          {/* Widgets Button */}
-          <button
-            onClick={() => {
-              if (isExpanded && activeModule === "widgets") {
-                setIsExpanded(false);
-              } else {
-                handleOpenModule("widgets");
-              }
-            }}
-            title="Floating Widgets"
-            className={cn(
-              "w-7 h-7 flex items-center justify-center rounded-full bg-evry-surface hover:bg-evry-surfaceHover border border-evry-border text-evry-muted hover:text-evry-text transition-all",
-              isExpanded && activeModule === "widgets" && "border-evry-accent/40 text-evry-accent"
-            )}
-          >
-            <LayoutGrid className="w-3.5 h-3.5" />
-          </button>
-
           {/* Settings Button */}
           <button
             onClick={() => {
@@ -639,12 +618,8 @@ export const Notch: React.FC = () => {
             <NotesReminders onBack={handleBackToDashboard} />
           )}
 
-          {activeModule === "privacy" && (
-            <PrivacyOverlay onBack={handleBackToDashboard} />
-          )}
-
-          {activeModule === "widgets" && (
-            <FloatingWidgets onBack={handleBackToDashboard} />
+          {activeModule === "teleprompter" && (
+            <Teleprompter onBack={handleBackToDashboard} />
           )}
 
           {activeModule === "clipboard" && (
@@ -772,14 +747,14 @@ export const Notch: React.FC = () => {
                 </button>
 
                 <button
-                  onClick={() => handleOpenModule("privacy")}
+                  onClick={() => handleOpenModule("teleprompter")}
                   className="flex flex-col items-center justify-center p-2 rounded-xl bg-evry-surface hover:bg-evry-surfaceHover border border-evry-border hover:border-evry-accent/40 transition-all group"
                 >
                   <div className="w-7 h-7 rounded-lg bg-evry-bg flex items-center justify-center text-rose-400 mb-1 border border-evry-border group-hover:border-rose-400/30 group-hover:scale-105 transition-all">
-                    <Eye className="w-3.5 h-3.5" />
+                    <Video className="w-3.5 h-3.5" />
                   </div>
-                  <span className="text-[11px] font-medium text-evry-text">Privacy</span>
-                  <span className="text-[9px] text-evry-muted">Shield & Tele</span>
+                  <span className="text-[11px] font-medium text-evry-text">Prompter</span>
+                  <span className="text-[9px] text-evry-muted">Distraction-Free</span>
                 </button>
               </div>
 
