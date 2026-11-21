@@ -1,0 +1,150 @@
+<!DOCTYPE html>
+<html lang="en" class="scroll-smooth bg-black text-zinc-100">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Privacy Policy — EvryFloat</title>
+  <meta name="description" content="EvryFloat Privacy Policy. 100% offline, air-gapped, zero cloud analytics, and native local SQLite storage.">
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          colors: {
+            brand: {
+              DEFAULT: '#3b82f6',
+              light: '#60a5fa',
+              dark: '#1d4ed8'
+            }
+          }
+        }
+      }
+    }
+  </script>
+  <style>
+    @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap');
+    body {
+      font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+      background-color: #000000;
+      color: #f4f4f5;
+    }
+    .font-mono {
+      font-family: 'JetBrains Mono', monospace;
+    }
+    .border-subtle {
+      border-color: #1e1e22;
+    }
+    .bg-surface {
+      background-color: #09090b;
+    }
+  </style>
+</head>
+<body class="bg-black text-zinc-200 antialiased selection:bg-brand selection:text-white">
+
+  <!-- Header -->
+  <header class="sticky top-0 z-50 w-full border-b border-subtle bg-black/90 backdrop-blur-md">
+    <div class="max-w-4xl mx-auto px-6 h-14 flex items-center justify-between">
+      <a href="index.html" class="flex items-center space-x-3 hover:opacity-80 transition-opacity">
+        <div class="w-6 h-6 rounded-md bg-white text-black flex items-center justify-center font-bold text-xs tracking-tighter">
+          EF
+        </div>
+        <span class="text-sm font-semibold text-white tracking-tight">EvryFloat</span>
+      </a>
+
+      <nav class="flex items-center space-x-6 text-xs font-medium text-zinc-400">
+        <a href="index.html" class="hover:text-white transition-colors">Home</a>
+        <a href="contact.html" class="hover:text-white transition-colors">Contact & Bugs</a>
+        <a href="terms.html" class="hover:text-white transition-colors">Terms</a>
+      </nav>
+    </div>
+  </header>
+
+  <!-- Main Content -->
+  <main class="max-w-3xl mx-auto px-6 py-16">
+    <div class="mb-12 border-b border-subtle pb-8">
+      <span class="text-xs font-mono uppercase tracking-widest text-brand font-semibold">Legal & Transparency</span>
+      <h1 class="text-3xl sm:text-4xl font-bold text-white mt-2 mb-3">Privacy Policy</h1>
+      <p class="text-xs font-mono text-zinc-500">Effective Date: November 21, 2026 • Version 1.0</p>
+    </div>
+
+    <!-- Core Promise Box -->
+    <div class="bg-surface rounded-xl border border-subtle p-5 mb-10">
+      <div class="flex items-center space-x-2 text-brand font-semibold text-xs mb-2">
+        <span class="w-2 h-2 rounded-full bg-brand"></span>
+        <span>The Zero-Telemetry Commitment</span>
+      </div>
+      <p class="text-xs text-zinc-300 leading-relaxed">
+        EvryFloat is strictly an offline desktop application. It contains <strong class="text-white">zero tracking codes, zero cloud telemetry, and zero remote analytics</strong>. Everything you copy, write, calculate, or stage stays entirely on your local machine.
+      </p>
+    </div>
+
+    <div class="space-y-10 text-xs text-zinc-400 leading-relaxed">
+      <!-- Section 1 -->
+      <section>
+        <h2 class="text-sm font-semibold text-white mb-2">1. Data Collected & Stored Locally</h2>
+        <p class="mb-2">EvryFloat functions by saving specific productivity data to your local hard drive under your Windows user profile (<code class="font-mono text-zinc-300">%APPDATA%\EVRY</code>):</p>
+        <ul class="list-disc list-inside space-y-1.5 pl-1 text-zinc-300">
+          <li><strong>Clipboard History:</strong> Text clips, URLs, hex colors, and code snippets captured from your Windows clipboard into a local SQLite database (<code class="font-mono text-zinc-400">evry.db</code>).</li>
+          <li><strong>Screenshots & Bitmap Images:</strong> Copied images are stored as local files under <code class="font-mono text-zinc-400">%APPDATA%\EVRY\clip_images</code> with BLAKE3 cryptographic hashes to prevent duplicates.</li>
+          <li><strong>Notes & Prompter Scripts:</strong> User-written notes, checklist reminders, and teleprompter texts are stored in your local SQLite database.</li>
+          <li><strong>User Preferences:</strong> Overlay opacity, hotkey registrations, and retention policies stored in standard local storage.</li>
+        </ul>
+      </section>
+
+      <!-- Section 2 -->
+      <section>
+        <h2 class="text-sm font-semibold text-white mb-2">2. Network Activity & External Communications</h2>
+        <p class="mb-2">EvryFloat is completely air-gapped:</p>
+        <ul class="list-disc list-inside space-y-1.5 pl-1 text-zinc-300">
+          <li>The application initiates <strong>no outbound HTTP/HTTPS requests</strong> to external servers.</li>
+          <li>No accounts, sign-ins, passwords, or personal credentials are required or stored.</li>
+          <li>Local Area Network (LAN) sharing via Drop Shelf is entirely peer-to-peer over your private local Wi-Fi and never routes through third-party relays.</li>
+        </ul>
+      </section>
+
+      <!-- Section 3 -->
+      <section>
+        <h2 class="text-sm font-semibold text-white mb-2">3. Hardware Screen Capture Protection (Privacy Shield)</h2>
+        <p class="mb-2">
+          EvryFloat includes native integration with the Windows <code class="font-mono text-zinc-300">SetWindowDisplayAffinity(WDA_EXCLUDEFROMCAPTURE)</code> API.
+        </p>
+        <p>
+          When enabled in Settings, the Windows Desktop Window Manager (DWM) excludes the EvryFloat window from any screen recording or sharing software (including Zoom, Microsoft Teams, Google Meet, OBS Studio, Discord, and Windows Snipping Tool). This ensures private notes and teleprompter scripts cannot be viewed by meeting participants.
+        </p>
+      </section>
+
+      <!-- Section 4 -->
+      <section>
+        <h2 class="text-sm font-semibold text-white mb-2">4. Data Retention & Deletion</h2>
+        <p class="mb-2">You have complete, absolute control over all data saved by EvryFloat:</p>
+        <ul class="list-disc list-inside space-y-1.5 pl-1 text-zinc-300">
+          <li><strong>One-Click Clear:</strong> You can purge clipboard items or delete notes anytime within the application.</li>
+          <li><strong>Auto-Purge Policy:</strong> Set automatic expiration for unpinned items (7, 30, or 90 days) in Settings.</li>
+          <li><strong>Complete Uninstall:</strong> Deleting the <code class="font-mono text-zinc-400">%APPDATA%\EVRY</code> folder permanently removes 100% of the database, images, and user history from your PC.</li>
+        </ul>
+      </section>
+
+      <!-- Section 5 -->
+      <section>
+        <h2 class="text-sm font-semibold text-white mb-2">5. Updates & Questions</h2>
+        <p>
+          As an open-source project, our codebase is fully auditable on <a href="https://github.com/ChokshiRaj/Evryfloat" target="_blank" class="text-brand hover:underline">GitHub</a>. If you have questions about privacy, open an inquiry on our <a href="contact.html" class="text-brand hover:underline">Contact page</a>.
+        </p>
+      </section>
+    </div>
+  </main>
+
+  <!-- Footer -->
+  <footer class="py-10 border-t border-subtle bg-black text-xs text-zinc-500">
+    <div class="max-w-4xl mx-auto px-6 flex flex-col sm:flex-row items-center justify-between gap-4">
+      <span>© 2026 EvryFloat. Open source desktop HUD.</span>
+      <div class="flex items-center space-x-5">
+        <a href="terms.html" class="hover:text-white transition-colors">Terms of Service</a>
+        <a href="contact.html" class="hover:text-white transition-colors">Contact</a>
+        <a href="index.html" class="hover:text-white transition-colors">Home</a>
+      </div>
+    </div>
+  </footer>
+
+</body>
+</html>

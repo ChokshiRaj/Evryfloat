@@ -58,8 +58,10 @@
       <nav class="hidden md:flex items-center space-x-7 text-xs font-medium text-zinc-400">
         <a href="#overview" class="hover:text-white transition-colors">Overview</a>
         <a href="#modules" class="hover:text-white transition-colors">Modules</a>
-        <a href="#how-it-works" class="hover:text-white transition-colors">Workflow</a>
         <a href="#specs" class="hover:text-white transition-colors">Architecture</a>
+        <a href="#faq" class="hover:text-white transition-colors">FAQ</a>
+        <a href="contact.html" class="hover:text-white transition-colors">Contact & Bugs</a>
+        <a href="privacy.html" class="hover:text-white transition-colors">Privacy</a>
       </nav>
 
       <div class="flex items-center space-x-3">
@@ -562,8 +564,69 @@
     </div>
   </section>
 
+  <!-- FAQ Section -->
+  <section id="faq" class="py-20 border-b border-subtle">
+    <div class="max-w-4xl mx-auto px-6">
+      <div class="mb-12 text-center">
+        <h2 class="text-xs font-mono uppercase tracking-widest text-brand mb-2">FAQ</h2>
+        <p class="text-2xl sm:text-3xl font-bold text-white">Frequently Asked Questions</p>
+        <p class="text-xs text-zinc-400 mt-2">Common answers regarding performance, privacy, and system integration.</p>
+      </div>
+
+      <div class="space-y-4 text-xs">
+        <!-- Q1 -->
+        <div class="bg-surface rounded-xl border border-subtle p-5">
+          <h3 class="text-sm font-semibold text-white mb-2">Will EvryFloat slow down my PC or drain laptop battery?</h3>
+          <p class="text-zinc-400 leading-relaxed">
+            No. EvryFloat is written natively in Rust using Tauri 2.0 rather than resource-heavy Electron. At idle, the app consumes under <strong class="text-zinc-200">28MB of RAM and 0.0% CPU</strong>. When collapsed, hardware sensors and timers throttle to near-zero background energy consumption.
+          </p>
+        </div>
+
+        <!-- Q2 -->
+        <div class="bg-surface rounded-xl border border-subtle p-5">
+          <h3 class="text-sm font-semibold text-white mb-2">How does the teleprompter remain invisible during Zoom or Teams screen shares?</h3>
+          <p class="text-zinc-400 leading-relaxed">
+            EvryFloat uses the Windows kernel-level Desktop Window Manager API <code class="font-mono text-zinc-300">SetWindowDisplayAffinity(WDA_EXCLUDEFROMCAPTURE)</code>. When activated, Windows automatically cuts the EvryFloat window out from video capture streams and screenshot buffers, allowing you to read notes without your meeting participants seeing them.
+          </p>
+        </div>
+
+        <!-- Q3 -->
+        <div class="bg-surface rounded-xl border border-subtle p-5">
+          <h3 class="text-sm font-semibold text-white mb-2">Where are my clipboard history, images, and notes stored?</h3>
+          <p class="text-zinc-400 leading-relaxed">
+            All data is saved strictly to your local computer under <code class="font-mono text-zinc-300">%APPDATA%\EVRY</code>. Text and notes reside in an encrypted SQLite database (<code class="font-mono text-zinc-400">evry.db</code>), and screenshots are saved as deduplicated local PNG files (<code class="font-mono text-zinc-400">clip_images/</code>) using BLAKE3 cryptographic hashes.
+          </p>
+        </div>
+
+        <!-- Q4 -->
+        <div class="bg-surface rounded-xl border border-subtle p-5">
+          <h3 class="text-sm font-semibold text-white mb-2">Does EvryFloat collect any analytics or require internet access?</h3>
+          <p class="text-zinc-400 leading-relaxed">
+            None. EvryFloat is 100% air-gapped and requires zero accounts, logins, or network access. It never makes outbound telemetry or tracking requests.
+          </p>
+        </div>
+
+        <!-- Q5 -->
+        <div class="bg-surface rounded-xl border border-subtle p-5">
+          <h3 class="text-sm font-semibold text-white mb-2">Can I change the global hotkey?</h3>
+          <p class="text-zinc-400 leading-relaxed">
+            The default summoning shortcut is <kbd class="font-mono text-zinc-300">Alt + Space</kbd>. You can configure preferences, autostart on boot, and clipboard auto-purge policies inside the Settings module.
+          </p>
+        </div>
+
+        <!-- Q6 -->
+        <div class="bg-surface rounded-xl border border-subtle p-5">
+          <h3 class="text-sm font-semibold text-white mb-2">What Windows versions are supported?</h3>
+          <p class="text-zinc-400 leading-relaxed">
+            EvryFloat is optimized for Windows 11 and also supports Windows 10 (Build 19041 and above) on 64-bit architectures (x86_64 and ARM64).
+          </p>
+        </div>
+      </div>
+    </div>
+  </section>
+
   <!-- Footer -->
-  <footer class="py-10 bg-black text-xs text-zinc-500">
+  <footer class="py-12 bg-black border-t border-subtle text-xs text-zinc-500">
     <div class="max-w-6xl mx-auto px-6 flex flex-col sm:flex-row items-center justify-between gap-4">
       <div class="flex items-center space-x-2">
         <span class="text-white font-semibold">EvryFloat</span>
@@ -571,9 +634,10 @@
         <span>Minimal Floating Productivity for Windows 11</span>
       </div>
       <div class="flex items-center space-x-6">
+        <a href="privacy.html" class="hover:text-white transition-colors">Privacy Policy</a>
+        <a href="terms.html" class="hover:text-white transition-colors">Terms of Service</a>
+        <a href="contact.html" class="hover:text-white transition-colors">Contact & Bugs</a>
         <a href="https://github.com/ChokshiRaj/Evryfloat" target="_blank" class="hover:text-white transition-colors">GitHub</a>
-        <a href="#overview" class="hover:text-white transition-colors">Documentation</a>
-        <span>MIT License</span>
       </div>
     </div>
   </footer>

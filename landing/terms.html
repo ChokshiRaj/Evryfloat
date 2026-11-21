@@ -1,0 +1,143 @@
+<!DOCTYPE html>
+<html lang="en" class="scroll-smooth bg-black text-zinc-100">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Terms & Conditions — EvryFloat</title>
+  <meta name="description" content="Terms of Service and License for EvryFloat open-source desktop HUD.">
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          colors: {
+            brand: {
+              DEFAULT: '#3b82f6',
+              light: '#60a5fa',
+              dark: '#1d4ed8'
+            }
+          }
+        }
+      }
+    }
+  </script>
+  <style>
+    @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap');
+    body {
+      font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+      background-color: #000000;
+      color: #f4f4f5;
+    }
+    .font-mono {
+      font-family: 'JetBrains Mono', monospace;
+    }
+    .border-subtle {
+      border-color: #1e1e22;
+    }
+    .bg-surface {
+      background-color: #09090b;
+    }
+  </style>
+</head>
+<body class="bg-black text-zinc-200 antialiased selection:bg-brand selection:text-white">
+
+  <!-- Header -->
+  <header class="sticky top-0 z-50 w-full border-b border-subtle bg-black/90 backdrop-blur-md">
+    <div class="max-w-4xl mx-auto px-6 h-14 flex items-center justify-between">
+      <a href="index.html" class="flex items-center space-x-3 hover:opacity-80 transition-opacity">
+        <div class="w-6 h-6 rounded-md bg-white text-black flex items-center justify-center font-bold text-xs tracking-tighter">
+          EF
+        </div>
+        <span class="text-sm font-semibold text-white tracking-tight">EvryFloat</span>
+      </a>
+
+      <nav class="flex items-center space-x-6 text-xs font-medium text-zinc-400">
+        <a href="index.html" class="hover:text-white transition-colors">Home</a>
+        <a href="privacy.html" class="hover:text-white transition-colors">Privacy</a>
+        <a href="contact.html" class="hover:text-white transition-colors">Contact & Bugs</a>
+      </nav>
+    </div>
+  </header>
+
+  <!-- Main Content -->
+  <main class="max-w-3xl mx-auto px-6 py-16">
+    <div class="mb-12 border-b border-subtle pb-8">
+      <span class="text-xs font-mono uppercase tracking-widest text-brand font-semibold">Legal Agreement</span>
+      <h1 class="text-3xl sm:text-4xl font-bold text-white mt-2 mb-3">Terms & Conditions</h1>
+      <p class="text-xs font-mono text-zinc-500">Last Revised: November 21, 2026</p>
+    </div>
+
+    <div class="space-y-10 text-xs text-zinc-400 leading-relaxed">
+      <!-- Section 1 -->
+      <section>
+        <h2 class="text-sm font-semibold text-white mb-2">1. Acceptance of Terms</h2>
+        <p>
+          By downloading, installing, compiling, or using EvryFloat, you agree to be bound by these Terms and Conditions. If you do not agree with any part of these terms, please do not use the software.
+        </p>
+      </section>
+
+      <!-- Section 2 -->
+      <section>
+        <h2 class="text-sm font-semibold text-white mb-2">2. Open Source License (MIT)</h2>
+        <p class="mb-3">
+          EvryFloat is open-source software licensed under the MIT License. You are permitted to inspect, copy, modify, merge, publish, distribute, and sublicense copies of the software, subject to the standard MIT copyright notice:
+        </p>
+        <div class="bg-surface rounded-lg border border-subtle p-4 font-mono text-[11px] text-zinc-300 leading-normal">
+          Permission is hereby granted, free of charge, to any person obtaining a copy of this software and associated documentation files (the "Software"), to deal in the Software without restriction, including without limitation the rights to use, copy, modify, merge, publish, distribute, sublicense, and/or sell copies of the Software...
+        </div>
+      </section>
+
+      <!-- Section 3 -->
+      <section>
+        <h2 class="text-sm font-semibold text-white mb-2">3. Local Desktop Execution & System Rights</h2>
+        <p class="mb-2">
+          EvryFloat executes natively on Windows 10 and Windows 11 as a desktop process. To provide its core features, the software requires the following local OS capabilities:
+        </p>
+        <ul class="list-disc list-inside space-y-1 pl-1 text-zinc-300">
+          <li>Registering global Windows keyboard shortcuts (<code class="font-mono text-zinc-400">Alt + Space</code>).</li>
+          <li>Accessing and monitoring local system clipboard changes to maintain clipboard history.</li>
+          <li>Writing local databases and cache files to <code class="font-mono text-zinc-400">%APPDATA%\EVRY</code>.</li>
+          <li>Querying local hardware metrics (CPU, RAM, Battery) via Windows APIs.</li>
+        </ul>
+      </section>
+
+      <!-- Section 4 -->
+      <section>
+        <h2 class="text-sm font-semibold text-white mb-2">4. Disclaimer of Warranty</h2>
+        <p>
+          THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE, AND NONINFRINGEMENT. IN NO EVENT SHALL THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES, OR OTHER LIABILITY ARISING FROM THE USE OR OPERATION OF THE SOFTWARE.
+        </p>
+      </section>
+
+      <!-- Section 5 -->
+      <section>
+        <h2 class="text-sm font-semibold text-white mb-2">5. User Responsibility</h2>
+        <p>
+          You are solely responsible for ensuring that your use of the teleprompter, clipboard history, and holding shelf complies with your organizational, workplace, or institutional guidelines regarding confidential information and meeting recordings.
+        </p>
+      </section>
+
+      <!-- Section 6 -->
+      <section>
+        <h2 class="text-sm font-semibold text-white mb-2">6. Modifications to Terms</h2>
+        <p>
+          We reserve the right to modify these terms as new features are released. Any revisions will be published in this repository with updated revision dates.
+        </p>
+      </section>
+    </div>
+  </main>
+
+  <!-- Footer -->
+  <footer class="py-10 border-t border-subtle bg-black text-xs text-zinc-500">
+    <div class="max-w-4xl mx-auto px-6 flex flex-col sm:flex-row items-center justify-between gap-4">
+      <span>© 2026 EvryFloat. MIT Licensed.</span>
+      <div class="flex items-center space-x-5">
+        <a href="privacy.html" class="hover:text-white transition-colors">Privacy Policy</a>
+        <a href="contact.html" class="hover:text-white transition-colors">Contact & Bugs</a>
+        <a href="index.html" class="hover:text-white transition-colors">Home</a>
+      </div>
+    </div>
+  </footer>
+
+</body>
+</html>
