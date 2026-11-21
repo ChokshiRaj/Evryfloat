@@ -1,0 +1,594 @@
+<!DOCTYPE html>
+<html lang="en" class="scroll-smooth">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>EvryFloat — The Floating Dynamic Notch for Windows 11</title>
+  <meta name="description" content="A sleek, distraction-free floating companion that stays flush to your webcam bezel. Teleprompter, Clipboard History, System Controls, Notes, Focus Timer & Media.">
+  <script src="https://cdn.tailwindcss.com"></script>
+  <style>
+    @import url('https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&family=JetBrains+Mono:wght@400;500;600&display=swap');
+    body {
+      font-family: 'Plus Jakarta Sans', -apple-system, BlinkMacSystemFont, sans-serif;
+      background-color: #090a0b;
+      color: #e2e8f0;
+    }
+    .font-mono {
+      font-family: 'JetBrains Mono', monospace;
+    }
+    .glass-card {
+      background: rgba(18, 20, 24, 0.7);
+      backdrop-filter: blur(16px);
+      border: 1px solid rgba(255, 255, 255, 0.08);
+    }
+    .glass-pill {
+      background: rgba(26, 29, 35, 0.85);
+      backdrop-filter: blur(12px);
+      border: 1px solid rgba(255, 255, 255, 0.12);
+    }
+    .accent-gradient {
+      background: linear-gradient(135deg, #6366f1 0%, #8b5cf6 50%, #ec4899 100%);
+    }
+    .text-gradient {
+      background: linear-gradient(135deg, #ffffff 0%, #cbd5e1 50%, #94a3b8 100%);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+    }
+    .text-accent-gradient {
+      background: linear-gradient(135deg, #818cf8 0%, #c084fc 100%);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+    }
+    .glow-effect {
+      box-shadow: 0 0 40px -10px rgba(99, 102, 241, 0.25);
+    }
+  </style>
+</head>
+<body class="antialiased selection:bg-indigo-500/30 selection:text-indigo-200">
+
+  <!-- Top Navigation Bar -->
+  <nav class="sticky top-0 z-50 w-full border-b border-white/5 bg-[#090a0b]/80 backdrop-blur-xl">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-16 flex items-center justify-between">
+      <div class="flex items-center space-x-3">
+        <div class="w-8 h-8 rounded-xl bg-gradient-to-tr from-indigo-600 to-purple-500 flex items-center justify-center shadow-lg shadow-indigo-500/20">
+          <svg class="w-4 h-4 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M13 10V3L4 14h7v7l9-11h-7z"/>
+          </svg>
+        </div>
+        <div class="flex items-center space-x-2">
+          <span class="text-base font-bold tracking-tight text-white">EvryFloat</span>
+          <span class="text-[10px] uppercase font-mono px-2 py-0.5 rounded-full bg-white/5 border border-white/10 text-indigo-400 font-semibold">Windows 11 HUD</span>
+        </div>
+      </div>
+
+      <div class="hidden md:flex items-center space-x-8 text-sm font-medium text-slate-400">
+        <a href="#what-is-evry" class="hover:text-white transition-colors">What is it</a>
+        <a href="#who-is-it-for" class="hover:text-white transition-colors">Who & Where</a>
+        <a href="#modules" class="hover:text-white transition-colors">All Modules</a>
+        <a href="#how-it-works" class="hover:text-white transition-colors">How to Use</a>
+        <a href="#architecture" class="hover:text-white transition-colors">Architecture</a>
+      </div>
+
+      <div class="flex items-center space-x-3">
+        <a href="https://github.com/ChokshiRaj/Evryfloat" target="_blank" class="px-4 py-2 rounded-xl text-xs font-semibold text-white bg-white/10 hover:bg-white/15 border border-white/10 transition-all flex items-center space-x-2">
+          <svg class="w-4 h-4" fill="currentColor" viewBox="0 0 24 24"><path fill-rule="evenodd" clip-rule="evenodd" d="M12 2C6.477 2 2 6.484 2 12.017c0 4.425 2.865 8.18 6.839 9.504.5.092.682-.217.682-.483 0-.237-.008-.868-.013-1.703-2.782.605-3.369-1.343-3.369-1.343-.454-1.158-1.11-1.466-1.11-1.466-.908-.62.069-.608.069-.608 1.003.07 1.53 1.032 1.53 1.032.892 1.53 2.341 1.088 2.91.832.092-.647.35-1.088.636-1.338-2.22-.253-4.555-1.113-4.555-4.951 0-1.093.39-1.988 1.029-2.688-.103-.253-.446-1.272.098-2.65 0 0 .84-.27 2.75 1.026A9.564 9.564 0 0112 6.844c.85.004 1.705.115 2.504.337 1.909-1.296 2.747-1.027 2.747-1.027.546 1.379.202 2.398.1 2.651.64.7 1.028 1.595 1.028 2.688 0 3.848-2.339 4.695-4.566 4.943.359.309.678.92.678 1.855 0 1.338-.012 2.419-.012 2.747 0 .268.18.58.688.482A10.019 10.019 0 0022 12.017C22 6.484 17.522 2 12 2z"/></svg>
+          <span>GitHub</span>
+        </a>
+      </div>
+    </div>
+  </nav>
+
+  <!-- Hero Section -->
+  <section class="relative pt-20 pb-28 overflow-hidden">
+    <!-- Background Glows -->
+    <div class="absolute top-1/4 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[600px] h-[300px] bg-indigo-600/15 blur-[120px] rounded-full pointer-events-none"></div>
+    <div class="absolute top-1/3 left-1/3 w-[300px] h-[250px] bg-purple-600/15 blur-[100px] rounded-full pointer-events-none"></div>
+
+    <div class="max-w-5xl mx-auto px-4 text-center relative z-10">
+      <!-- Badge -->
+      <div class="inline-flex items-center space-x-2 px-3 py-1.5 rounded-full bg-white/5 border border-white/10 text-xs text-slate-300 mb-8 backdrop-blur-md">
+        <span class="w-2 h-2 rounded-full bg-emerald-400 animate-pulse"></span>
+        <span>Native Windows 11 Floating Companion • Built with Rust & Tauri 2.0</span>
+      </div>
+
+      <!-- Main Headline -->
+      <h1 class="text-4xl sm:text-6xl lg:text-7xl font-extrabold tracking-tight text-white mb-6 leading-[1.1]">
+        The Floating Notch <br />
+        <span class="text-accent-gradient">Every Windows User Deserves</span>
+      </h1>
+
+      <p class="max-w-2xl mx-auto text-base sm:text-lg text-slate-400 leading-relaxed mb-10">
+        A sleek, distraction-free floating HUD flush directly under your webcam bezel. Teleprompter, rich clipboard history, quick hardware controls, offline notes, Pomodoro focus, and media playback — all just <kbd class="px-2 py-0.5 rounded bg-white/10 border border-white/20 font-mono text-xs text-white">Alt + Space</kbd> away.
+      </p>
+
+      <!-- CTA Buttons -->
+      <div class="flex flex-col sm:flex-row items-center justify-center gap-4 mb-16">
+        <a href="https://github.com/ChokshiRaj/Evryfloat" target="_blank" class="w-full sm:w-auto px-7 py-3.5 rounded-xl font-bold text-sm bg-gradient-to-r from-indigo-500 to-purple-600 hover:from-indigo-600 hover:to-purple-700 text-white shadow-xl shadow-indigo-500/25 transition-all active:scale-95 flex items-center justify-center space-x-2">
+          <svg class="w-4 h-4 fill-current" viewBox="0 0 24 24"><path d="M12 2C6.477 2 2 6.484 2 12.017c0 4.425 2.865 8.18 6.839 9.504.5.092.682-.217.682-.483 0-.237-.008-.868-.013-1.703-2.782.605-3.369-1.343-3.369-1.343-.454-1.158-1.11-1.466-1.11-1.466-.908-.62.069-.608.069-.608 1.003.07 1.53 1.032 1.53 1.032.892 1.53 2.341 1.088 2.91.832.092-.647.35-1.088.636-1.338-2.22-.253-4.555-1.113-4.555-4.951 0-1.093.39-1.988 1.029-2.688-.103-.253-.446-1.272.098-2.65 0 0 .84-.27 2.75 1.026A9.564 9.564 0 0112 6.844c.85.004 1.705.115 2.504.337 1.909-1.296 2.747-1.027 2.747-1.027.546 1.379.202 2.398.1 2.651.64.7 1.028 1.595 1.028 2.688 0 3.848-2.339 4.695-4.566 4.943.359.309.678.92.678 1.855 0 1.338-.012 2.419-.012 2.747 0 .268.18.58.688.482A10.019 10.019 0 0022 12.017C22 6.484 17.522 2 12 2z"/></svg>
+          <span>Star & Clone on GitHub</span>
+        </a>
+        <a href="#modules" class="w-full sm:w-auto px-7 py-3.5 rounded-xl font-semibold text-sm bg-white/5 hover:bg-white/10 border border-white/10 text-white transition-all flex items-center justify-center space-x-2">
+          <span>Explore 9 Modules</span>
+          <svg class="w-4 h-4 text-slate-400" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"/></svg>
+        </a>
+      </div>
+
+      <!-- Live Mock Notch Visualizer -->
+      <div class="relative max-w-2xl mx-auto">
+        <!-- Floating Pill (Default 44px collapsed state) -->
+        <div class="glass-pill rounded-b-2xl px-5 py-2.5 flex items-center justify-between shadow-2xl border-t-0 border-white/15">
+          <div class="flex items-center space-x-3">
+            <span class="w-2 h-2 rounded-full bg-emerald-400"></span>
+            <span class="text-xs font-semibold text-white tracking-wide">EVRY</span>
+            <span class="text-[10px] font-mono text-slate-400">01:45 PM • Thu, Nov 21</span>
+          </div>
+
+          <!-- Center Active Chip -->
+          <div class="flex items-center space-x-1.5 px-2.5 py-0.5 rounded-full bg-purple-500/15 border border-purple-500/30 text-purple-300 text-[10px] font-mono">
+            <span class="w-1.5 h-1.5 rounded-full bg-purple-400 animate-ping"></span>
+            <span>Zoom Call Active • Prompter Ready</span>
+          </div>
+
+          <div class="flex items-center space-x-3 text-xs text-slate-400">
+            <span class="font-mono text-[11px] text-emerald-400">51% ⚡</span>
+            <span class="text-white/30">|</span>
+            <span class="text-[10px] font-mono text-indigo-400">ALT + SPACE</span>
+          </div>
+        </div>
+
+        <p class="mt-3 text-[11px] text-slate-500 font-mono">
+          ▲ Glides flush right beneath your monitor bezel or laptop webcam
+        </p>
+      </div>
+    </div>
+  </section>
+
+  <!-- Section 1: What, Who, Where, How (4 Pillars) -->
+  <section id="what-is-evry" class="py-20 border-t border-white/5 bg-[#0c0d0f]/60">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      <div class="text-center max-w-3xl mx-auto mb-16">
+        <h2 class="text-xs font-mono uppercase tracking-widest text-indigo-400 font-bold mb-3">Core Identity</h2>
+        <p class="text-3xl sm:text-4xl font-extrabold text-white">Built for High-Velocity Modern Work</p>
+        <p class="mt-4 text-sm sm:text-base text-slate-400">Windows 11 is powerful, but constant window switching destroys your focus. EvryFloat brings context to your fingertips without ever taking you out of flow.</p>
+      </div>
+
+      <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
+        <!-- 1. What is this? -->
+        <div class="glass-card p-6 rounded-2xl border border-white/10 hover:border-indigo-500/40 transition-all flex flex-col justify-between">
+          <div>
+            <div class="w-10 h-10 rounded-xl bg-indigo-500/15 border border-indigo-500/30 text-indigo-400 flex items-center justify-center mb-4">
+              <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"/></svg>
+            </div>
+            <h3 class="text-base font-bold text-white mb-2">What is it?</h3>
+            <p class="text-xs text-slate-400 leading-relaxed">
+              A native Windows 11 Dynamic Island & floating productivity notch. It rests quietly as a 44px pill flush against your top bezel and expands smoothly into a 350px powerhouse HUD whenever summoned.
+            </p>
+          </div>
+          <div class="mt-4 pt-3 border-t border-white/5 text-[11px] font-mono text-indigo-300">
+            • 100% Offline SQLite<br>
+            • Under 30MB RAM
+          </div>
+        </div>
+
+        <!-- 2. Who can use this? -->
+        <div id="who-is-it-for" class="glass-card p-6 rounded-2xl border border-white/10 hover:border-purple-500/40 transition-all flex flex-col justify-between">
+          <div>
+            <div class="w-10 h-10 rounded-xl bg-purple-500/15 border border-purple-500/30 text-purple-400 flex items-center justify-center mb-4">
+              <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 20h5v-2a3 3 0 00-5.356-1.857M17 20H7m10 0v-2c0-.656-.126-1.283-.356-1.857M7 20H2v-2a3 3 0 015.356-1.857M7 20v-2c0-.656.126-1.283.356-1.857m0 0a5.002 5.002 0 019.288 0M15 7a3 3 0 11-6 0 3 3 0 016 0zm6 3a2 2 0 11-4 0 2 2 0 014 0zM7 10a2 2 0 11-4 0 2 2 0 014 0z"/></svg>
+            </div>
+            <h3 class="text-base font-bold text-white mb-2">Who can use this?</h3>
+            <p class="text-xs text-slate-400 leading-relaxed">
+              <strong>Presenters:</strong> Read talking points directly under the webcam.<br>
+              <strong>Developers:</strong> Instant clipboard history, hex inspection & file shelf.<br>
+              <strong>Students & Pros:</strong> Focus Pomodoro sessions, master volume & scratchpad notes.
+            </p>
+          </div>
+          <div class="mt-4 pt-3 border-t border-white/5 text-[11px] font-mono text-purple-300">
+            • Universal appeal<br>
+            • Zero learning curve
+          </div>
+        </div>
+
+        <!-- 3. Where can it be used? -->
+        <div class="glass-card p-6 rounded-2xl border border-white/10 hover:border-emerald-500/40 transition-all flex flex-col justify-between">
+          <div>
+            <div class="w-10 h-10 rounded-xl bg-emerald-500/15 border border-emerald-500/30 text-emerald-400 flex items-center justify-center mb-4">
+              <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9.75 17L9 20l-1 1h8l-1-1-.75-3M3 13h18M5 17h14a2 2 0 002-2V5a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z"/></svg>
+            </div>
+            <h3 class="text-base font-bold text-white mb-2">Where to use it?</h3>
+            <p class="text-xs text-slate-400 leading-relaxed">
+              <strong>Live Meetings:</strong> Teams, Zoom, Meet, OBS (hidden via WDA_EXCLUDEFROMCAPTURE).<br>
+              <strong>Dual Monitors:</strong> Anchored comfortably to top center.<br>
+              <strong>Any App:</strong> Floats above full-screen browsers, IDEs, games, or spreadsheets.
+            </p>
+          </div>
+          <div class="mt-4 pt-3 border-t border-white/5 text-[11px] font-mono text-emerald-300">
+            • Always on top<br>
+            • Screen-share invisible
+          </div>
+        </div>
+
+        <!-- 4. How to use it? -->
+        <div id="how-it-works" class="glass-card p-6 rounded-2xl border border-white/10 hover:border-amber-500/40 transition-all flex flex-col justify-between">
+          <div>
+            <div class="w-10 h-10 rounded-xl bg-amber-500/15 border border-amber-500/30 text-amber-400 flex items-center justify-center mb-4">
+              <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 6V4m0 2a2 2 0 100 4m0-4a2 2 0 110 4m-6 8a2 2 0 100-4m0 4a2 2 0 110-4m0 4v2m0-6V4m6 6v10m6-2a2 2 0 100-4m0 4a2 2 0 110-4m0 4v2m0-6V4"/></svg>
+            </div>
+            <h3 class="text-base font-bold text-white mb-2">How to use it?</h3>
+            <p class="text-xs text-slate-400 leading-relaxed">
+              <strong>1. Summon:</strong> Hit <kbd class="bg-white/10 px-1 py-0.5 rounded font-mono text-[10px]">Alt+Space</kbd> or click the notch pill.<br>
+              <strong>2. Switch:</strong> Click any of the 8 quick tiles or press hotkeys.<br>
+              <strong>3. Return:</strong> Press <kbd class="bg-white/10 px-1 py-0.5 rounded font-mono text-[10px]">Esc</kbd> or click away to collapse seamlessly.
+            </p>
+          </div>
+          <div class="mt-4 pt-3 border-t border-white/5 text-[11px] font-mono text-amber-300">
+            • Fast keyboard flow<br>
+            • Instant mouse glance
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Section 2: All 9 Modules Detailed Breakdown -->
+  <section id="modules" class="py-24 border-t border-white/5">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      <div class="text-center max-w-3xl mx-auto mb-16">
+        <h2 class="text-xs font-mono uppercase tracking-widest text-indigo-400 font-bold mb-3">All Built-in Modules</h2>
+        <p class="text-3xl sm:text-4xl font-extrabold text-white">9 Powerful Tools. Zero Clutter.</p>
+        <p class="mt-4 text-sm sm:text-base text-slate-400">Every module is strictly tuned to a unified 350px expanded height, ensuring a smooth, harmonious desktop experience.</p>
+      </div>
+
+      <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+
+        <!-- Module 1: Distraction-Free Teleprompter -->
+        <div class="glass-card p-6 rounded-2xl border border-white/10 hover:border-rose-500/40 transition-all flex flex-col justify-between group">
+          <div>
+            <div class="flex items-center justify-between mb-4">
+              <div class="w-10 h-10 rounded-xl bg-rose-500/15 border border-rose-500/30 text-rose-400 flex items-center justify-center group-hover:scale-105 transition-transform">
+                <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 10l4.553-2.276A1 1 0 0121 8.618v6.764a1 1 0 01-1.447.894L15 14M5 18h8a2 2 0 002-2V8a2 2 0 00-2-2H5a2 2 0 00-2 2v8a2 2 0 002 2z"/></svg>
+              </div>
+              <span class="text-[10px] font-mono px-2 py-0.5 rounded bg-rose-500/10 text-rose-300 border border-rose-500/20 font-semibold">Webcam Aligned</span>
+            </div>
+            <h3 class="text-lg font-bold text-white mb-2">1. Distraction-Free Prompter</h3>
+            <p class="text-xs text-slate-400 leading-relaxed mb-4">
+              Positioned directly beneath your webcam lens so your eyes look right at your audience while delivering talks or interviews.
+            </p>
+            <ul class="text-xs text-slate-300 space-y-1.5 list-disc list-inside">
+              <li><strong class="text-white">Zero Distraction:</strong> Toolbar fades to 0% opacity during auto-scroll.</li>
+              <li><strong class="text-white">Smooth Scrolling:</strong> 60 FPS sub-pixel speeds (0.5x, 1x, 1.5x, 2x) & Spacebar toggle.</li>
+              <li><strong class="text-white">Notes Sync:</strong> Import or save notes directly to local SQLite.</li>
+              <li><strong class="text-white">Eye-Level Guide:</strong> Subtle dashed horizon marker aligned under webcam.</li>
+            </ul>
+          </div>
+          <div class="mt-6 pt-3 border-t border-white/5 text-[11px] text-slate-500 font-mono">
+            Key: Teleprompter.tsx • Local Storage Auto-Save
+          </div>
+        </div>
+
+        <!-- Module 2: Smart Clipboard History -->
+        <div class="glass-card p-6 rounded-2xl border border-white/10 hover:border-orange-500/40 transition-all flex flex-col justify-between group">
+          <div>
+            <div class="flex items-center justify-between mb-4">
+              <div class="w-10 h-10 rounded-xl bg-orange-500/15 border border-orange-500/30 text-orange-400 flex items-center justify-center group-hover:scale-105 transition-transform">
+                <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2"/></svg>
+              </div>
+              <span class="text-[10px] font-mono px-2 py-0.5 rounded bg-orange-500/10 text-orange-300 border border-orange-500/20 font-semibold">Native Drag & Drop</span>
+            </div>
+            <h3 class="text-lg font-bold text-white mb-2">2. Clipboard History</h3>
+            <p class="text-xs text-slate-400 leading-relaxed mb-4">
+              High-performance clipboard memory without cloud telemetry. Zero heavy base64 strings in SQLite.
+            </p>
+            <ul class="text-xs text-slate-300 space-y-1.5 list-disc list-inside">
+              <li><strong class="text-white">Native Bitmaps:</strong> Screenshots saved to disk with BLAKE3 deduplication.</li>
+              <li><strong class="text-white">Drag OUT & Drop IN:</strong> Drag clips directly to Slack, VS Code, or drop files in.</li>
+              <li><strong class="text-white">Type Filter Pills:</strong> All, Images, Text, Colors (Hex), and Links.</li>
+              <li><strong class="text-white">Copy vs Paste:</strong> Click to copy, double-click or Enter to paste & collapse.</li>
+            </ul>
+          </div>
+          <div class="mt-6 pt-3 border-t border-white/5 text-[11px] text-slate-500 font-mono">
+            Key: ClipboardManager.tsx • %APPDATA%\EVRY
+          </div>
+        </div>
+
+        <!-- Module 3: Quick Controls & System -->
+        <div class="glass-card p-6 rounded-2xl border border-white/10 hover:border-blue-500/40 transition-all flex flex-col justify-between group">
+          <div>
+            <div class="flex items-center justify-between mb-4">
+              <div class="w-10 h-10 rounded-xl bg-blue-500/15 border border-blue-500/30 text-blue-400 flex items-center justify-center group-hover:scale-105 transition-transform">
+                <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 6V4m0 2a2 2 0 100 4m0-4a2 2 0 110 4m-6 8a2 2 0 100-4m0 4a2 2 0 110-4m0 4v2m0-6V4m6 6v10m6-2a2 2 0 100-4m0 4a2 2 0 110-4m0 4v2m0-6V4"/></svg>
+              </div>
+              <span class="text-[10px] font-mono px-2 py-0.5 rounded bg-blue-500/10 text-blue-300 border border-blue-500/20 font-semibold">3-Row Layout</span>
+            </div>
+            <h3 class="text-lg font-bold text-white mb-2">3. Quick Controls & System</h3>
+            <p class="text-xs text-slate-400 leading-relaxed mb-4">
+              Compact hardware metrics and quick system toggles inspired by macOS Control Center and modern HUDs.
+            </p>
+            <ul class="text-xs text-slate-300 space-y-1.5 list-disc list-inside">
+              <li><strong class="text-white">CPU & RAM Gauges:</strong> Real-time utilization bars and used/total memory.</li>
+              <li><strong class="text-white">1-Click Shortcuts:</strong> Wi-Fi, Bluetooth, Display Brightness, Windows Settings.</li>
+              <li><strong class="text-white">Master Volume:</strong> Instant Mute, Volume Down, and Volume Up buttons.</li>
+              <li><strong class="text-white">Header Power Status:</strong> Live battery % and charging state badge.</li>
+            </ul>
+          </div>
+          <div class="mt-6 pt-3 border-t border-white/5 text-[11px] text-slate-500 font-mono">
+            Key: QuickActions.tsx • Compact 290px Grid
+          </div>
+        </div>
+
+        <!-- Module 4: Command Search & Launcher -->
+        <div class="glass-card p-6 rounded-2xl border border-white/10 hover:border-indigo-500/40 transition-all flex flex-col justify-between group">
+          <div>
+            <div class="flex items-center justify-between mb-4">
+              <div class="w-10 h-10 rounded-xl bg-indigo-500/15 border border-indigo-500/30 text-indigo-400 flex items-center justify-center group-hover:scale-105 transition-transform">
+                <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"/></svg>
+              </div>
+              <span class="text-[10px] font-mono px-2 py-0.5 rounded bg-indigo-500/10 text-indigo-300 border border-indigo-500/20 font-semibold">Alt + Space</span>
+            </div>
+            <h3 class="text-lg font-bold text-white mb-2">4. Universal Command Search</h3>
+            <p class="text-xs text-slate-400 leading-relaxed mb-4">
+              Raycast-style unified search bar for applications, files, calculations, and custom prefixes.
+            </p>
+            <ul class="text-xs text-slate-300 space-y-1.5 list-disc list-inside">
+              <li><strong class="text-white">Instant App Launching:</strong> Scans Start Menu and Program Files.</li>
+              <li><strong class="text-white">Math & Dictionary:</strong> Real-time math evaluation and definition lookups.</li>
+              <li><strong class="text-white">Specialized Prefixes:</strong> Prefix `kill` to end tasks, `clip` to find clips.</li>
+              <li><strong class="text-white">Text Snippets:</strong> Quick insertion for common symbols and phrases.</li>
+            </ul>
+          </div>
+          <div class="mt-6 pt-3 border-t border-white/5 text-[11px] text-slate-500 font-mono">
+            Key: CommandSearch.tsx • Windows Shell Exec
+          </div>
+        </div>
+
+        <!-- Module 5: Notes & Reminders -->
+        <div class="glass-card p-6 rounded-2xl border border-white/10 hover:border-cyan-500/40 transition-all flex flex-col justify-between group">
+          <div>
+            <div class="flex items-center justify-between mb-4">
+              <div class="w-10 h-10 rounded-xl bg-cyan-500/15 border border-cyan-500/30 text-cyan-400 flex items-center justify-center group-hover:scale-105 transition-transform">
+                <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M11 5H6a2 2 0 00-2 2v11a2 2 0 002 2h11a2 2 0 002-2v-5m-1.414-9.414a2 2 0 112.828 2.828L11.828 15H9v-2.828l8.586-8.586z"/></svg>
+              </div>
+              <span class="text-[10px] font-mono px-2 py-0.5 rounded bg-cyan-500/10 text-cyan-300 border border-cyan-500/20 font-semibold">SQLite Local</span>
+            </div>
+            <h3 class="text-lg font-bold text-white mb-2">5. Notes & Reminders</h3>
+            <p class="text-xs text-slate-400 leading-relaxed mb-4">
+              Instant scratchpad for thoughts, meeting notes, code snippets, and time-stamped checklist reminders.
+            </p>
+            <ul class="text-xs text-slate-300 space-y-1.5 list-disc list-inside">
+              <li><strong class="text-white">Local Notes:</strong> Persistent title + body storage saved automatically.</li>
+              <li><strong class="text-white">Due Date Reminders:</strong> Set checklist tasks with date/time trackers.</li>
+              <li><strong class="text-white">Seamless Sync:</strong> Seamlessly shared with the Teleprompter module.</li>
+              <li><strong class="text-white">Zero Latency:</strong> Powered directly by embedded SQLite engine.</li>
+            </ul>
+          </div>
+          <div class="mt-6 pt-3 border-t border-white/5 text-[11px] text-slate-500 font-mono">
+            Key: NotesReminders.tsx • SQLite Database
+          </div>
+        </div>
+
+        <!-- Module 6: Pomodoro Focus Timer -->
+        <div class="glass-card p-6 rounded-2xl border border-white/10 hover:border-emerald-500/40 transition-all flex flex-col justify-between group">
+          <div>
+            <div class="flex items-center justify-between mb-4">
+              <div class="w-10 h-10 rounded-xl bg-emerald-500/15 border border-emerald-500/30 text-emerald-400 flex items-center justify-center group-hover:scale-105 transition-transform">
+                <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z"/></svg>
+              </div>
+              <span class="text-[10px] font-mono px-2 py-0.5 rounded bg-emerald-500/10 text-emerald-300 border border-emerald-500/20 font-semibold">Audio Chime</span>
+            </div>
+            <h3 class="text-lg font-bold text-white mb-2">6. Focus & Pomodoro</h3>
+            <p class="text-xs text-slate-400 leading-relaxed mb-4">
+              Integrated focus management with live countdown rendering directly inside the top notch pill.
+            </p>
+            <ul class="text-xs text-slate-300 space-y-1.5 list-disc list-inside">
+              <li><strong class="text-white">Custom Intervals:</strong> Work duration, short breaks, and long break intervals.</li>
+              <li><strong class="text-white">Pill Activity:</strong> Live timer countdown visible in top notch pill.</li>
+              <li><strong class="text-white">Sound Notification:</strong> Native audio alert upon session completion.</li>
+              <li><strong class="text-white">Session Analytics:</strong> Tracks daily streak and sessions completed.</li>
+            </ul>
+          </div>
+          <div class="mt-6 pt-3 border-t border-white/5 text-[11px] text-slate-500 font-mono">
+            Key: PomodoroTimer.tsx • Background Rust Worker
+          </div>
+        </div>
+
+        <!-- Module 7: Media Controls -->
+        <div class="glass-card p-6 rounded-2xl border border-white/10 hover:border-purple-500/40 transition-all flex flex-col justify-between group">
+          <div>
+            <div class="flex items-center justify-between mb-4">
+              <div class="w-10 h-10 rounded-xl bg-purple-500/15 border border-purple-500/30 text-purple-400 flex items-center justify-center group-hover:scale-105 transition-transform">
+                <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 19V6l12-3v13M9 19c0 1.105-1.343 2-3 2s-3-.895-3-2 1.343-2 3-2 3 .895 3 2zm12-3c0 1.105-1.343 2-3 2s-3-.895-3-2 1.343-2 3-2 3 .895 3 2zM9 10l12-3"/></svg>
+              </div>
+              <span class="text-[10px] font-mono px-2 py-0.5 rounded bg-purple-500/10 text-purple-300 border border-purple-500/20 font-semibold">SMTC Native</span>
+            </div>
+            <h3 class="text-lg font-bold text-white mb-2">7. Now Playing & Media</h3>
+            <p class="text-xs text-slate-400 leading-relaxed mb-4">
+              Live Spotify, YouTube, Apple Music, and browser audio player integration through Windows Media Transport.
+            </p>
+            <ul class="text-xs text-slate-300 space-y-1.5 list-disc list-inside">
+              <li><strong class="text-white">Track Metadata:</strong> Live song title, artist, and playback status.</li>
+              <li><strong class="text-white">Transport Controls:</strong> Play, pause, skip previous, and skip next.</li>
+              <li><strong class="text-white">Dynamic Island Pill:</strong> Shows currently playing song in the top notch.</li>
+              <li><strong class="text-white">Volume Step:</strong> Fine-grained master volume adjustments.</li>
+            </ul>
+          </div>
+          <div class="mt-6 pt-3 border-t border-white/5 text-[11px] text-slate-500 font-mono">
+            Key: MediaControls.tsx • Windows SMTC API
+          </div>
+        </div>
+
+        <!-- Module 8: Drop Shelf -->
+        <div class="glass-card p-6 rounded-2xl border border-white/10 hover:border-amber-500/40 transition-all flex flex-col justify-between group">
+          <div>
+            <div class="flex items-center justify-between mb-4">
+              <div class="w-10 h-10 rounded-xl bg-amber-500/15 border border-amber-500/30 text-amber-400 flex items-center justify-center group-hover:scale-105 transition-transform">
+                <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M20 13V6a2 2 0 00-2-2H6a2 2 0 00-2 2v7m16 0v5a2 2 0 01-2 2H6a2 2 0 01-2-2v-5m16 0h-2.586a1 1 0 00-.707.293l-2.414 2.414a1 1 0 01-.707.293h-3.172a1 1 0 01-.707-.293l-2.414-2.414A1 1 0 006.586 13H4"/></svg>
+              </div>
+              <span class="text-[10px] font-mono px-2 py-0.5 rounded bg-amber-500/10 text-amber-300 border border-amber-500/20 font-semibold">Universal Stash</span>
+            </div>
+            <h3 class="text-lg font-bold text-white mb-2">8. Holding Drop Shelf</h3>
+            <p class="text-xs text-slate-400 leading-relaxed mb-4">
+              A temporary clipboard shelf for holding files, folders, URLs, and code snippets while switching between apps.
+            </p>
+            <ul class="text-xs text-slate-300 space-y-1.5 list-disc list-inside">
+              <li><strong class="text-white">Multi-Item Staging:</strong> Drag 10 files into the notch, drop them later in email.</li>
+              <li><strong class="text-white">Batch Actions:</strong> Select all, copy file paths, or reveal in Explorer.</li>
+              <li><strong class="text-white">Risk Detection:</strong> Inspects file extensions and internet origin flags.</li>
+              <li><strong class="text-white">LAN Sharing:</strong> Generate local Wi-Fi QR code for peer downloads.</li>
+            </ul>
+          </div>
+          <div class="mt-6 pt-3 border-t border-white/5 text-[11px] text-slate-500 font-mono">
+            Key: DropShelf.tsx • Local Staging Cache
+          </div>
+        </div>
+
+        <!-- Module 9: Hardware Privacy Shield & Settings -->
+        <div class="glass-card p-6 rounded-2xl border border-white/10 hover:border-emerald-500/40 transition-all flex flex-col justify-between group">
+          <div>
+            <div class="flex items-center justify-between mb-4">
+              <div class="w-10 h-10 rounded-xl bg-emerald-500/15 border border-emerald-500/30 text-emerald-400 flex items-center justify-center group-hover:scale-105 transition-transform">
+                <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z"/></svg>
+              </div>
+              <span class="text-[10px] font-mono px-2 py-0.5 rounded bg-emerald-500/10 text-emerald-300 border border-emerald-500/20 font-semibold">Kernel Affinity</span>
+            </div>
+            <h3 class="text-lg font-bold text-white mb-2">9. Privacy Shield & Settings</h3>
+            <p class="text-xs text-slate-400 leading-relaxed mb-4">
+              Hardware-level screen capture protection and deep system settings located inside the Preferences view.
+            </p>
+            <ul class="text-xs text-slate-300 space-y-1.5 list-disc list-inside">
+              <li><strong class="text-white">Capture Exclusion:</strong> Powered by `SetWindowDisplayAffinity(WDA_EXCLUDEFROMCAPTURE)`.</li>
+              <li><strong class="text-white">Invisible on Shares:</strong> Hides EVRY completely from Zoom, Teams, & OBS.</li>
+              <li><strong class="text-white">Opacity Slider:</strong> Fine-tune transparency from 40% to 100%.</li>
+              <li><strong class="text-white">Retention Policies:</strong> Auto-prune unpinned clipboard items after 7-90 days.</li>
+            </ul>
+          </div>
+          <div class="mt-6 pt-3 border-t border-white/5 text-[11px] text-slate-500 font-mono">
+            Key: SettingsView.tsx • Windows Display Affinity API
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+  <!-- Section 3: Architecture & Privacy Guarantee -->
+  <section id="architecture" class="py-20 border-t border-white/5 bg-[#0c0d0f]/60">
+    <div class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
+      <div class="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
+        <div>
+          <h2 class="text-xs font-mono uppercase tracking-widest text-indigo-400 font-bold mb-3">Under the Hood</h2>
+          <h3 class="text-3xl sm:text-4xl font-extrabold text-white mb-6">Engineered for Performance. <br>100% Offline & Private.</h3>
+          <p class="text-sm text-slate-400 leading-relaxed mb-6">
+            Unlike modern desktop apps built on bloated Electron frameworks that consume gigabytes of memory, EvryFloat is built on <strong class="text-white">Tauri 2.0 and Rust</strong>.
+          </p>
+
+          <div class="space-y-4">
+            <div class="flex items-start space-x-3">
+              <div class="w-6 h-6 rounded-lg bg-emerald-500/15 border border-emerald-500/30 text-emerald-400 flex items-center justify-center flex-shrink-0 mt-0.5">
+                <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"/></svg>
+              </div>
+              <div>
+                <h4 class="text-xs font-bold text-white">0% Cloud Analytics or Telemetry</h4>
+                <p class="text-xs text-slate-400">Your clips, presentation scripts, and notes never touch any remote server. Everything is stored locally on your machine.</p>
+              </div>
+            </div>
+
+            <div class="flex items-start space-x-3">
+              <div class="w-6 h-6 rounded-lg bg-emerald-500/15 border border-emerald-500/30 text-emerald-400 flex items-center justify-center flex-shrink-0 mt-0.5">
+                <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"/></svg>
+              </div>
+              <div>
+                <h4 class="text-xs font-bold text-white">Native Windows 11 API Integration</h4>
+                <p class="text-xs text-slate-400">Direct integration with Windows GlobalHook, SMTC Media, Display Affinity, and PowerShell registry commands.</p>
+              </div>
+            </div>
+
+            <div class="flex items-start space-x-3">
+              <div class="w-6 h-6 rounded-lg bg-emerald-500/15 border border-emerald-500/30 text-emerald-400 flex items-center justify-center flex-shrink-0 mt-0.5">
+                <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"/></svg>
+              </div>
+              <div>
+                <h4 class="text-xs font-bold text-white">Instant Summoning & Zero Latency</h4>
+                <p class="text-xs text-slate-400">Window heights adjust smoothly (44px collapsed to 350px expanded) with native hardware acceleration.</p>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Terminal Specs Box -->
+        <div class="glass-card rounded-2xl border border-white/10 p-5 font-mono text-xs text-slate-300">
+          <div class="flex items-center space-x-2 pb-3 mb-3 border-b border-white/10 text-slate-500 text-[11px]">
+            <span class="w-2.5 h-2.5 rounded-full bg-rose-500/80"></span>
+            <span class="w-2.5 h-2.5 rounded-full bg-amber-500/80"></span>
+            <span class="w-2.5 h-2.5 rounded-full bg-emerald-500/80"></span>
+            <span class="ml-2 text-slate-400">evry-system-diagnostics.log</span>
+          </div>
+          <div class="space-y-1.5 text-[11px]">
+            <p><span class="text-indigo-400">[CORE]</span> Engine: Rust 1.84 + Tauri v2.5</p>
+            <p><span class="text-indigo-400">[FRONTEND]</span> React 19 + TypeScript + Tailwind CSS</p>
+            <p><span class="text-indigo-400">[DATABASE]</span> Local SQLite at %APPDATA%\EVRY\evry.db</p>
+            <p><span class="text-indigo-400">[IMAGES]</span> BLAKE3 Hashed Bitmaps (%APPDATA%\EVRY\clip_images)</p>
+            <p><span class="text-indigo-400">[GLOBAL_HOTKEY]</span> Windows Hook (ALT + SPACE)</p>
+            <p><span class="text-emerald-400">[SECURITY]</span> WDA_EXCLUDEFROMCAPTURE: Active (Build 26100+)</p>
+            <p><span class="text-emerald-400">[NETWORK]</span> 0 outgoing requests • 100% air-gapped</p>
+            <p><span class="text-purple-400">[MEMORY]</span> ~28.4 MB idle RAM • 0.0% background CPU</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Section 4: Keyboard Shortcuts & Quick Guide -->
+  <section class="py-20 border-t border-white/5">
+    <div class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
+      <div class="text-center mb-12">
+        <h2 class="text-xs font-mono uppercase tracking-widest text-indigo-400 font-bold mb-3">Power User Cheatsheet</h2>
+        <p class="text-2xl sm:text-3xl font-extrabold text-white">Master EvryFloat with Keyboard Shortcuts</p>
+      </div>
+
+      <div class="glass-card rounded-2xl border border-white/10 divide-y divide-white/5 text-xs">
+        <div class="p-3.5 flex items-center justify-between">
+          <span class="text-slate-300">Summon / Collapse the Floating Notch</span>
+          <span class="px-2 py-1 rounded bg-white/10 font-mono text-white text-[11px] font-semibold border border-white/15">Alt + Space</span>
+        </div>
+        <div class="p-3.5 flex items-center justify-between">
+          <span class="text-slate-300">Close open module / return to 44px pill</span>
+          <span class="px-2 py-1 rounded bg-white/10 font-mono text-white text-[11px] font-semibold border border-white/15">Escape</span>
+        </div>
+        <div class="p-3.5 flex items-center justify-between">
+          <span class="text-slate-300">Teleprompter: Toggle Smooth Auto-Scroll</span>
+          <span class="px-2 py-1 rounded bg-white/10 font-mono text-white text-[11px] font-semibold border border-white/15">Space</span>
+        </div>
+        <div class="p-3.5 flex items-center justify-between">
+          <span class="text-slate-300">Clipboard: Copy Selected Item</span>
+          <span class="px-2 py-1 rounded bg-white/10 font-mono text-white text-[11px] font-semibold border border-white/15">Single Click</span>
+        </div>
+        <div class="p-3.5 flex items-center justify-between">
+          <span class="text-slate-300">Clipboard: Direct Paste & Auto-Collapse Notch</span>
+          <span class="px-2 py-1 rounded bg-white/10 font-mono text-white text-[11px] font-semibold border border-white/15">Double Click / Enter</span>
+        </div>
+        <div class="p-3.5 flex items-center justify-between">
+          <span class="text-slate-300">Clipboard: Drag OUT to External Apps</span>
+          <span class="px-2 py-1 rounded bg-white/10 font-mono text-white text-[11px] font-semibold border border-white/15">Mouse Drag from clip card</span>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Footer -->
+  <footer class="py-12 border-t border-white/10 bg-[#070809]">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 flex flex-col sm:flex-row items-center justify-between gap-4 text-xs text-slate-500">
+      <div class="flex items-center space-x-2">
+        <span class="text-white font-semibold">EvryFloat</span>
+        <span>•</span>
+        <span>Open Source Floating Productivity for Windows 11</span>
+      </div>
+      <div class="flex items-center space-x-6">
+        <a href="https://github.com/ChokshiRaj/Evryfloat" target="_blank" class="hover:text-white transition-colors">GitHub Repository</a>
+        <a href="#what-is-evry" class="hover:text-white transition-colors">Documentation</a>
+        <span>MIT License</span>
+      </div>
+    </div>
+  </footer>
+
+</body>
+</html>
