@@ -22,11 +22,11 @@ interface QuickActionsProps {
 }
 
 const volBtn =
-  "px-2.5 py-1.5 rounded-lg bg-evry-bg hover:bg-evry-surfaceHover border border-evry-border text-[11px] text-evry-muted hover:text-evry-text transition-colors flex items-center space-x-1";
+  "px-2 py-1 rounded-md bg-evry-bg hover:bg-evry-surfaceHover border border-evry-border text-[10px] text-evry-muted hover:text-evry-text transition-colors flex items-center space-x-1";
 
 function powerText(s: SystemStats | null): string {
   if (!s) return "--";
-  if (s.battery_percent == null) return "AC Powered";
+  if (s.battery_percent == null) return "AC Power";
   const state = s.is_charging ? "Charging" : s.on_ac ? "Plugged in" : "On battery";
   return `${s.battery_percent}% • ${state}`;
 }
@@ -87,59 +87,59 @@ export const QuickActions: React.FC<QuickActionsProps> = ({ onBack }) => {
     : "text-emerald-400";
 
   return (
-    <div className="w-full flex flex-col h-[410px] bg-evry-bg rounded-b-2xl animate-slideDown overflow-hidden p-4">
+    <div className="w-full flex flex-col h-[290px] bg-evry-bg rounded-b-2xl animate-slideDown overflow-hidden p-3">
       {/* Header with Power Status beside SYSTEM */}
-      <div className="flex items-center justify-between pb-2.5 border-b border-evry-border">
-        <div className="flex items-center space-x-2">
+      <div className="flex items-center justify-between pb-1.5 border-b border-evry-border">
+        <div className="flex items-center space-x-1.5">
           <button
             onClick={onBack}
-            className="w-7 h-7 rounded-lg bg-evry-surface hover:bg-evry-surfaceHover border border-evry-border flex items-center justify-center text-evry-muted hover:text-evry-text transition-colors"
+            className="w-6 h-6 rounded-md bg-evry-surface hover:bg-evry-surfaceHover border border-evry-border flex items-center justify-center text-evry-muted hover:text-evry-text transition-colors"
             aria-label="Back"
           >
-            <ArrowLeft className="w-3.5 h-3.5" />
+            <ArrowLeft className="w-3 h-3" />
           </button>
-          <span className="text-xs font-semibold text-evry-text tracking-wide">Quick Controls & System</span>
+          <span className="text-[11px] font-semibold text-evry-text tracking-wide">Quick Controls & System</span>
         </div>
 
         {/* Power Status displayed beside SYSTEM */}
-        <div className="flex items-center space-x-2">
-          <div className="flex items-center space-x-1.5 px-2 py-0.5 rounded-lg bg-evry-surface border border-evry-border text-[11px] font-mono">
-            <BatteryIcon className={`w-3.5 h-3.5 ${batteryColor}`} />
+        <div className="flex items-center space-x-1.5">
+          <div className="flex items-center space-x-1 px-1.5 py-0.5 rounded-md bg-evry-surface border border-evry-border text-[10px] font-mono">
+            <BatteryIcon className={`w-3 h-3 ${batteryColor}`} />
             <span className={lowBattery ? "text-red-400 font-semibold" : "text-evry-text"}>
               {powerText(stats)}
             </span>
           </div>
-          <span className="text-[10px] text-evry-muted uppercase tracking-wider font-mono">System</span>
+          <span className="text-[9px] text-evry-muted uppercase tracking-wider font-mono">System</span>
         </div>
       </div>
 
       {/* 
-        3-Row Wireframe Grid Layout:
+        3-Row Wireframe Grid Layout (Compact):
         Row 1: [ Wide Box: CPU Load ] [ Small Box: Wi-Fi ] [ Small Box: Bluetooth ]
         Row 2: [ Wide Box: Memory ]   [ Small Box: Display ] [ Small Box: Settings ]
         Row 3: [ Full-Width Box: Master Volume ]
       */}
-      <div className="flex-1 min-h-0 grid grid-cols-4 grid-rows-[1fr_1fr_auto] gap-2.5 py-2.5">
+      <div className="flex-1 min-h-0 grid grid-cols-4 grid-rows-[1fr_1fr_auto] gap-2 py-2">
         {/* Row 1 Left: CPU Load (Col Span 2) */}
-        <div className="col-span-2 p-3 rounded-xl bg-evry-surface border border-evry-border flex flex-col justify-between h-full">
-          <div className="flex items-center justify-between text-xs">
+        <div className="col-span-2 p-2.5 rounded-xl bg-evry-surface border border-evry-border flex flex-col justify-between h-full">
+          <div className="flex items-center justify-between text-[11px]">
             <span className="flex items-center space-x-1.5">
-              <Cpu className="w-4 h-4 text-evry-accent" />
+              <Cpu className="w-3.5 h-3.5 text-evry-accent" />
               <span className="font-semibold text-evry-text">CPU Load</span>
             </span>
-            <span className="font-mono text-xs text-evry-accent font-semibold">
+            <span className="font-mono text-[11px] text-evry-accent font-semibold">
               {stats ? `${stats.cpu_usage.toFixed(1)}%` : "--"}
             </span>
           </div>
-          <div className="py-2">
-            <div className="w-full h-2 bg-evry-bg rounded-full overflow-hidden">
+          <div className="py-1">
+            <div className="w-full h-1.5 bg-evry-bg rounded-full overflow-hidden">
               <div
                 className="h-full bg-evry-accent transition-all duration-500 rounded-full"
                 style={{ width: `${Math.min(stats?.cpu_usage ?? 0, 100)}%` }}
               />
             </div>
           </div>
-          <div className="text-[10px] text-evry-muted font-mono flex items-center justify-between">
+          <div className="text-[9px] text-evry-muted font-mono flex items-center justify-between">
             <span>Utilization</span>
             <span>
               {stats ? (stats.cpu_usage > 75 ? "High Load" : stats.cpu_usage > 30 ? "Active" : "Normal") : "--"}
@@ -150,43 +150,43 @@ export const QuickActions: React.FC<QuickActionsProps> = ({ onBack }) => {
         {/* Row 1 Middle: Wi-Fi (Col Span 1) */}
         <button
           onClick={() => handleOpenSetting("ms-settings:network-wifi")}
-          className="col-span-1 flex flex-col items-center justify-center p-2 rounded-xl bg-evry-surface hover:bg-evry-surfaceHover border border-evry-border hover:border-emerald-500/40 transition-all group h-full"
+          className="col-span-1 flex flex-col items-center justify-center p-1.5 rounded-xl bg-evry-surface hover:bg-evry-surfaceHover border border-evry-border hover:border-emerald-500/40 transition-all group h-full"
         >
-          <Wifi className="w-5 h-5 text-emerald-400 mb-1 group-hover:scale-110 transition-transform" />
-          <span className="text-xs font-semibold text-evry-text">Wi-Fi</span>
+          <Wifi className="w-4 h-4 text-emerald-400 mb-0.5 group-hover:scale-110 transition-transform" />
+          <span className="text-[11px] font-semibold text-evry-text">Wi-Fi</span>
           <span className="text-[9px] text-evry-muted">Network</span>
         </button>
 
         {/* Row 1 Right: Bluetooth (Col Span 1) */}
         <button
           onClick={() => handleOpenSetting("ms-settings:bluetooth")}
-          className="col-span-1 flex flex-col items-center justify-center p-2 rounded-xl bg-evry-surface hover:bg-evry-surfaceHover border border-evry-border hover:border-blue-500/40 transition-all group h-full"
+          className="col-span-1 flex flex-col items-center justify-center p-1.5 rounded-xl bg-evry-surface hover:bg-evry-surfaceHover border border-evry-border hover:border-blue-500/40 transition-all group h-full"
         >
-          <Bluetooth className="w-5 h-5 text-blue-400 mb-1 group-hover:scale-110 transition-transform" />
-          <span className="text-xs font-semibold text-evry-text">Bluetooth</span>
+          <Bluetooth className="w-4 h-4 text-blue-400 mb-0.5 group-hover:scale-110 transition-transform" />
+          <span className="text-[11px] font-semibold text-evry-text">Bluetooth</span>
           <span className="text-[9px] text-evry-muted">Devices</span>
         </button>
 
         {/* Row 2 Left: Memory (Col Span 2) */}
-        <div className="col-span-2 p-3 rounded-xl bg-evry-surface border border-evry-border flex flex-col justify-between h-full">
-          <div className="flex items-center justify-between text-xs">
+        <div className="col-span-2 p-2.5 rounded-xl bg-evry-surface border border-evry-border flex flex-col justify-between h-full">
+          <div className="flex items-center justify-between text-[11px]">
             <span className="flex items-center space-x-1.5">
-              <HardDrive className="w-4 h-4 text-emerald-400" />
+              <HardDrive className="w-3.5 h-3.5 text-emerald-400" />
               <span className="font-semibold text-evry-text">Memory</span>
             </span>
-            <span className="font-mono text-xs text-emerald-400 font-semibold">
+            <span className="font-mono text-[11px] text-emerald-400 font-semibold">
               {stats ? `${stats.memory_usage_percent.toFixed(0)}%` : "--"}
             </span>
           </div>
-          <div className="py-2">
-            <div className="w-full h-2 bg-evry-bg rounded-full overflow-hidden">
+          <div className="py-1">
+            <div className="w-full h-1.5 bg-evry-bg rounded-full overflow-hidden">
               <div
                 className="h-full bg-emerald-400 transition-all duration-500 rounded-full"
                 style={{ width: `${Math.min(stats?.memory_usage_percent ?? 0, 100)}%` }}
               />
             </div>
           </div>
-          <div className="text-[10px] text-evry-muted font-mono flex items-center justify-between">
+          <div className="text-[9px] text-evry-muted font-mono flex items-center justify-between">
             <span>Used / Total</span>
             <span>
               {stats
@@ -199,38 +199,38 @@ export const QuickActions: React.FC<QuickActionsProps> = ({ onBack }) => {
         {/* Row 2 Middle: Display (Col Span 1) */}
         <button
           onClick={() => handleOpenSetting("ms-settings:display")}
-          className="col-span-1 flex flex-col items-center justify-center p-2 rounded-xl bg-evry-surface hover:bg-evry-surfaceHover border border-evry-border hover:border-amber-500/40 transition-all group h-full"
+          className="col-span-1 flex flex-col items-center justify-center p-1.5 rounded-xl bg-evry-surface hover:bg-evry-surfaceHover border border-evry-border hover:border-amber-500/40 transition-all group h-full"
         >
-          <Monitor className="w-5 h-5 text-amber-400 mb-1 group-hover:scale-110 transition-transform" />
-          <span className="text-xs font-semibold text-evry-text">Display</span>
+          <Monitor className="w-4 h-4 text-amber-400 mb-0.5 group-hover:scale-110 transition-transform" />
+          <span className="text-[11px] font-semibold text-evry-text">Display</span>
           <span className="text-[9px] text-evry-muted">Brightness</span>
         </button>
 
         {/* Row 2 Right: Settings (Col Span 1) */}
         <button
           onClick={() => handleOpenSetting("ms-settings:")}
-          className="col-span-1 flex flex-col items-center justify-center p-2 rounded-xl bg-evry-surface hover:bg-evry-surfaceHover border border-evry-border hover:border-evry-accent/40 transition-all group h-full"
+          className="col-span-1 flex flex-col items-center justify-center p-1.5 rounded-xl bg-evry-surface hover:bg-evry-surfaceHover border border-evry-border hover:border-evry-accent/40 transition-all group h-full"
         >
-          <Settings className="w-5 h-5 text-evry-muted mb-1 group-hover:scale-110 transition-transform" />
-          <span className="text-xs font-semibold text-evry-text">Settings</span>
+          <Settings className="w-4 h-4 text-evry-muted mb-0.5 group-hover:scale-110 transition-transform" />
+          <span className="text-[11px] font-semibold text-evry-text">Settings</span>
           <span className="text-[9px] text-evry-muted">Windows</span>
         </button>
 
         {/* Row 3: Master Volume (Col Span 4 - Full Width) */}
-        <div className="col-span-4 p-3 rounded-xl bg-evry-surface border border-evry-border flex items-center justify-between">
-          <div className="flex items-center space-x-2 text-xs text-evry-text">
-            <div className="w-7 h-7 rounded-lg bg-evry-bg border border-evry-border flex items-center justify-center text-evry-accent">
-              <Volume2 className="w-3.5 h-3.5" />
+        <div className="col-span-4 p-2 px-3 rounded-xl bg-evry-surface border border-evry-border flex items-center justify-between">
+          <div className="flex items-center space-x-2 text-[11px] text-evry-text">
+            <div className="w-6 h-6 rounded-md bg-evry-bg border border-evry-border flex items-center justify-center text-evry-accent">
+              <Volume2 className="w-3 h-3" />
             </div>
             <span className="font-semibold">Master Volume</span>
           </div>
-          <div className="flex items-center space-x-1.5">
+          <div className="flex items-center space-x-1">
             <button onClick={() => handleVolume(0)} className={volBtn} title="Toggle mute">
-              <VolumeX className="w-3.5 h-3.5" />
+              <VolumeX className="w-3 h-3" />
               <span>Mute</span>
             </button>
             <button onClick={() => handleVolume(-2)} className={volBtn} title="Decrease volume">
-              <Volume1 className="w-3.5 h-3.5" />
+              <Volume1 className="w-3 h-3" />
               <span>Down</span>
             </button>
             <button
@@ -238,14 +238,14 @@ export const QuickActions: React.FC<QuickActionsProps> = ({ onBack }) => {
               className={volBtn.replace("text-evry-muted", "text-evry-accent font-medium")}
               title="Increase volume"
             >
-              <Volume2 className="w-3.5 h-3.5" />
+              <Volume2 className="w-3 h-3" />
               <span>Up</span>
             </button>
           </div>
         </div>
       </div>
 
-      {error && <p className="text-[10px] text-red-400 text-center mt-1">{error}</p>}
+      {error && <p className="text-[9px] text-red-400 text-center mt-0.5">{error}</p>}
     </div>
   );
 };
