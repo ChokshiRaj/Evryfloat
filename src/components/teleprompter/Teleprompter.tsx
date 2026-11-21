@@ -187,7 +187,7 @@ export const Teleprompter: React.FC<TeleprompterProps> = ({ onBack }) => {
   const estimatedMins = Math.max(1, Math.round(words / 130));
 
   return (
-    <div className="relative w-full flex flex-col h-[410px] bg-evry-bg rounded-b-2xl animate-slideDown overflow-hidden select-none">
+    <div className="relative w-full flex flex-col h-[290px] bg-evry-bg rounded-b-2xl animate-slideDown overflow-hidden select-none">
       {/* 
         Distraction-Free Top Bar:
         Fades out smoothly when scrolling (isPlaying = true) so NOTHING comes in the user's eyes.
@@ -195,14 +195,14 @@ export const Teleprompter: React.FC<TeleprompterProps> = ({ onBack }) => {
       */}
       <div
         className={cn(
-          "w-full px-4 pt-3 pb-2 border-b border-evry-border flex items-center justify-between transition-all duration-300 z-20 bg-evry-bg/95 backdrop-blur-md",
+          "w-full px-3 pt-2 pb-1.5 border-b border-evry-border flex items-center justify-between transition-all duration-300 z-20 bg-evry-bg/95 backdrop-blur-md",
           isPlaying ? "opacity-0 hover:opacity-100 focus-within:opacity-100" : "opacity-100"
         )}
       >
-        <div className="flex items-center space-x-2">
+        <div className="flex items-center space-x-1.5">
           <button
             onClick={onBack}
-            className="w-7 h-7 rounded-lg bg-evry-surface hover:bg-evry-surfaceHover border border-evry-border flex items-center justify-center text-evry-muted hover:text-evry-text transition-colors"
+            className="w-6 h-6 rounded-md bg-evry-surface hover:bg-evry-surfaceHover border border-evry-border flex items-center justify-center text-evry-muted hover:text-evry-text transition-colors"
             title="Back to Dashboard"
           >
             <ArrowLeft className="w-3.5 h-3.5" />

@@ -67,12 +67,7 @@ export const Notch: React.FC = () => {
   useEffect(() => {
     let targetHeight = 44;
     if (isExpanded) {
-      targetHeight =
-        activeModule === "dashboard"
-          ? 350
-          : activeModule === "actions"
-          ? 320
-          : 475;
+      targetHeight = 350;
     }
     invoke("set_notch_height", { logicalHeight: targetHeight }).catch(console.error);
   }, [isExpanded, activeModule]);

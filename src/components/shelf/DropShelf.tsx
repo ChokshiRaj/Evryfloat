@@ -301,15 +301,15 @@ export const DropShelf: React.FC<DropShelfProps> = ({
   };
 
   return (
-    <div className="w-full flex flex-col h-[410px] bg-evry-bg rounded-b-2xl animate-slideDown overflow-hidden p-3.5 relative">
+    <div className="w-full flex flex-col h-[290px] bg-evry-bg rounded-b-2xl animate-slideDown overflow-hidden p-3 relative">
       {/* Header */}
-      <div className="flex items-center justify-between pb-2 border-b border-evry-border">
-        <div className="flex items-center space-x-2">
+      <div className="flex items-center justify-between pb-1.5 border-b border-evry-border">
+        <div className="flex items-center space-x-1.5">
           <button
             onClick={onBack}
-            className="w-7 h-7 rounded-lg bg-evry-surface hover:bg-evry-surfaceHover border border-evry-border flex items-center justify-center text-evry-muted hover:text-evry-text transition-colors"
+            className="w-6 h-6 rounded-md bg-evry-surface hover:bg-evry-surfaceHover border border-evry-border flex items-center justify-center text-evry-muted hover:text-evry-text transition-colors"
           >
-            <ChevronLeft className="w-4 h-4" />
+            <ChevronLeft className="w-3.5 h-3.5" />
           </button>
           <div className="flex items-center space-x-1.5">
             <span className="text-xs font-semibold text-evry-text">Holding Shelf</span>

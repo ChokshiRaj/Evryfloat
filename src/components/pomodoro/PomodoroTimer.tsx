@@ -98,7 +98,7 @@ export const PomodoroTimer: React.FC<PomodoroTimerProps> = ({ onBack }) => {
 
   if (!state) {
     return (
-      <div className="w-full h-[410px] bg-evry-bg rounded-b-2xl flex items-center justify-center text-xs text-evry-muted">
+      <div className="w-full h-[290px] bg-evry-bg rounded-b-2xl flex items-center justify-center text-xs text-evry-muted">
         Loading timer…
       </div>
     );
@@ -152,15 +152,15 @@ export const PomodoroTimer: React.FC<PomodoroTimerProps> = ({ onBack }) => {
   const sessionsToday = stats?.sessions_today ?? state.sessions_today;
 
   return (
-    <div className="w-full flex flex-col h-[410px] bg-evry-bg rounded-b-2xl animate-slideDown overflow-hidden p-4">
+    <div className="w-full flex flex-col h-[290px] bg-evry-bg rounded-b-2xl animate-slideDown overflow-hidden p-3">
       {/* Header */}
-      <div className="flex items-center justify-between pb-3 border-b border-evry-border">
-        <div className="flex items-center space-x-2">
+      <div className="flex items-center justify-between pb-1.5 border-b border-evry-border">
+        <div className="flex items-center space-x-1.5">
           <button
             onClick={onBack}
-            className="w-7 h-7 rounded-lg bg-evry-surface hover:bg-evry-surfaceHover border border-evry-border flex items-center justify-center text-evry-muted hover:text-evry-text transition-colors"
+            className="w-6 h-6 rounded-md bg-evry-surface hover:bg-evry-surfaceHover border border-evry-border flex items-center justify-center text-evry-muted hover:text-evry-text transition-colors"
           >
-            <ChevronLeft className="w-4 h-4" />
+            <ChevronLeft className="w-3.5 h-3.5" />
           </button>
           <span className="text-xs font-semibold text-evry-text tracking-wide">Focus & Pomodoro</span>
         </div>

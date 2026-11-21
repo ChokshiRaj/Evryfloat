@@ -127,13 +127,13 @@ export const NotesReminders: React.FC<NotesRemindersProps> = ({ onBack }) => {
   };
 
   return (
-    <div className="w-full flex flex-col h-[410px] bg-evry-bg rounded-b-2xl animate-slideDown overflow-hidden p-4">
+    <div className="w-full flex flex-col h-[290px] bg-evry-bg rounded-b-2xl animate-slideDown overflow-hidden p-3">
       {/* Header Tabs */}
-      <div className="flex items-center justify-between pb-2.5 border-b border-evry-border">
-        <div className="flex items-center space-x-2">
+      <div className="flex items-center justify-between pb-1.5 border-b border-evry-border">
+        <div className="flex items-center space-x-1.5">
           <button
             onClick={onBack}
-            className="w-7 h-7 rounded-lg bg-evry-surface hover:bg-evry-surfaceHover border border-evry-border flex items-center justify-center text-evry-muted hover:text-evry-text transition-colors"
+            className="w-6 h-6 rounded-md bg-evry-surface hover:bg-evry-surfaceHover border border-evry-border flex items-center justify-center text-evry-muted hover:text-evry-text transition-colors"
           >
             <ArrowLeft className="w-3.5 h-3.5" />
           </button>
@@ -142,7 +142,7 @@ export const NotesReminders: React.FC<NotesRemindersProps> = ({ onBack }) => {
             <button
               onClick={() => setTab("notes")}
               className={cn(
-                "px-2.5 py-1 rounded-md text-xs font-medium transition-all",
+                "px-2 py-0.5 rounded-md text-[11px] font-medium transition-all",
                 tab === "notes"
                   ? "bg-evry-accent text-white shadow-sm font-semibold"
                   : "text-evry-muted hover:text-evry-text"
@@ -153,7 +153,7 @@ export const NotesReminders: React.FC<NotesRemindersProps> = ({ onBack }) => {
             <button
               onClick={() => setTab("reminders")}
               className={cn(
-                "px-2.5 py-1 rounded-md text-xs font-medium transition-all",
+                "px-2 py-0.5 rounded-md text-[11px] font-medium transition-all",
                 tab === "reminders"
                   ? "bg-evry-accent text-white shadow-sm font-semibold"
                   : "text-evry-muted hover:text-evry-text"
@@ -167,7 +167,7 @@ export const NotesReminders: React.FC<NotesRemindersProps> = ({ onBack }) => {
         {tab === "notes" && (
           <button
             onClick={handleCreateNewNote}
-            className="flex items-center space-x-1 px-3 py-1.5 rounded-lg bg-evry-accent text-white text-xs font-semibold hover:bg-evry-accentHover transition-all shadow-sm active:scale-95"
+            className="flex items-center space-x-1 px-2.5 py-1 rounded-md bg-evry-accent text-white text-[11px] font-semibold hover:bg-evry-accentHover transition-all shadow-sm active:scale-95"
           >
             <Plus className="w-3.5 h-3.5" />
             <span>New Note</span>

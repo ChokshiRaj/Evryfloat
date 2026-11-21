@@ -337,7 +337,7 @@ export const ClipboardManager: React.FC<ClipboardManagerProps> = ({ onBack }) =>
       onDrop={handleDrop}
       tabIndex={0}
       className={cn(
-        "w-full flex flex-col h-[440px] bg-evry-bg rounded-b-2xl animate-slideDown overflow-hidden p-4 relative focus:outline-none transition-colors",
+        "w-full flex flex-col h-[290px] bg-evry-bg rounded-b-2xl animate-slideDown overflow-hidden p-3 relative focus:outline-none transition-colors",
         isDraggingOver && "ring-2 ring-evry-accent ring-inset bg-evry-surface/70"
       )}
     >
@@ -355,18 +355,18 @@ export const ClipboardManager: React.FC<ClipboardManagerProps> = ({ onBack }) =>
       )}
 
       {/* Header */}
-      <div className="flex items-center justify-between pb-2.5 border-b border-evry-border">
-        <div className="flex items-center space-x-2">
+      <div className="flex items-center justify-between pb-1.5 border-b border-evry-border">
+        <div className="flex items-center space-x-1.5">
           <button
             onClick={onBack}
-            className="w-7 h-7 rounded-lg bg-evry-surface hover:bg-evry-surfaceHover border border-evry-border flex items-center justify-center text-evry-muted hover:text-evry-text transition-colors"
+            className="w-6 h-6 rounded-md bg-evry-surface hover:bg-evry-surfaceHover border border-evry-border flex items-center justify-center text-evry-muted hover:text-evry-text transition-colors"
           >
-            <ChevronLeft className="w-4 h-4" />
+            <ChevronLeft className="w-3.5 h-3.5" />
           </button>
           <div className="flex items-center space-x-1.5">
-            <Clipboard className="w-4 h-4 text-evry-accent" />
+            <Clipboard className="w-3.5 h-3.5 text-evry-accent" />
             <span className="text-xs font-semibold text-evry-text tracking-wide">
-              Clipboard History ({items.length})
+              Clipboard ({items.length})
             </span>
           </div>
         </div>
@@ -391,7 +391,7 @@ export const ClipboardManager: React.FC<ClipboardManagerProps> = ({ onBack }) =>
       </div>
 
       {/* Category Filter Pills */}
-      <div className="py-2.5 flex items-center space-x-1.5 overflow-x-auto no-scrollbar text-[11px]">
+      <div className="py-1.5 flex items-center space-x-1.5 overflow-x-auto no-scrollbar text-[11px]">
         <button
           onClick={() => setFilterType("all")}
           className={cn(

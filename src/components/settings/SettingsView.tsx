@@ -122,24 +122,24 @@ export const SettingsView: React.FC<SettingsViewProps> = ({ onBack }) => {
   };
 
   return (
-    <div className="w-full flex flex-col h-[410px] bg-evry-bg rounded-b-2xl animate-slideDown overflow-hidden p-4">
+    <div className="w-full flex flex-col h-[290px] bg-evry-bg rounded-b-2xl animate-slideDown overflow-hidden p-3">
       {/* Header */}
-      <div className="flex items-center justify-between pb-2.5 border-b border-evry-border">
-        <div className="flex items-center space-x-2">
+      <div className="flex items-center justify-between pb-1.5 border-b border-evry-border">
+        <div className="flex items-center space-x-1.5">
           <button
             onClick={onBack}
-            className="w-7 h-7 rounded-lg bg-evry-surface hover:bg-evry-surfaceHover border border-evry-border flex items-center justify-center text-evry-muted hover:text-evry-text transition-colors"
+            className="w-6 h-6 rounded-md bg-evry-surface hover:bg-evry-surfaceHover border border-evry-border flex items-center justify-center text-evry-muted hover:text-evry-text transition-colors"
           >
             <ArrowLeft className="w-3.5 h-3.5" />
           </button>
-          <div className="flex items-center space-x-2">
-            <SettingsIcon className="w-4 h-4 text-evry-accent" />
+          <div className="flex items-center space-x-1.5">
+            <SettingsIcon className="w-3.5 h-3.5 text-evry-accent" />
             <span className="text-xs font-semibold text-evry-text tracking-wide">
-              EVRY Preferences & Settings
+              Settings & Preferences
             </span>
           </div>
         </div>
-        <span className="text-[10px] font-mono bg-evry-surface border border-evry-border px-2 py-0.5 rounded text-evry-muted">
+        <span className="text-[10px] font-mono bg-evry-surface border border-evry-border px-1.5 py-0.5 rounded text-evry-muted">
           v0.1.0 • Desktop
         </span>
       </div>

@@ -74,15 +74,15 @@ export const MediaControls: React.FC<MediaControlsProps> = ({ onBack }) => {
   const hasMedia = mediaInfo && (mediaInfo.title || mediaInfo.artist);
 
   return (
-    <div className="w-full flex flex-col h-[410px] bg-evry-bg rounded-b-2xl animate-slideDown overflow-hidden p-4">
+    <div className="w-full flex flex-col h-[290px] bg-evry-bg rounded-b-2xl animate-slideDown overflow-hidden p-3">
       {/* Header */}
-      <div className="flex items-center justify-between pb-3 border-b border-evry-border">
-        <div className="flex items-center space-x-2">
+      <div className="flex items-center justify-between pb-1.5 border-b border-evry-border">
+        <div className="flex items-center space-x-1.5">
           <button
             onClick={onBack}
-            className="w-7 h-7 rounded-lg bg-evry-surface hover:bg-evry-surfaceHover border border-evry-border flex items-center justify-center text-evry-muted hover:text-evry-text transition-colors"
+            className="w-6 h-6 rounded-md bg-evry-surface hover:bg-evry-surfaceHover border border-evry-border flex items-center justify-center text-evry-muted hover:text-evry-text transition-colors"
           >
-            <ChevronLeft className="w-4 h-4" />
+            <ChevronLeft className="w-3.5 h-3.5" />
           </button>
           <span className="text-xs font-semibold text-evry-text tracking-wide">Now Playing & Media</span>
         </div>
@@ -93,7 +93,7 @@ export const MediaControls: React.FC<MediaControlsProps> = ({ onBack }) => {
       </div>
 
       {/* Main Player Display */}
-      <div className="flex-1 min-h-0 flex flex-col items-center justify-center py-2 space-y-4">
+      <div className="flex-1 min-h-0 flex flex-col items-center justify-center py-1 space-y-2.5">
         {/* Track / Artwork Card */}
         <div className="w-full max-w-[340px] p-4 rounded-2xl bg-evry-surface border border-evry-border flex items-center space-x-3.5 shadow-sm">
           <div

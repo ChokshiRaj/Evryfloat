@@ -465,9 +465,9 @@ export const CommandSearch: React.FC<CommandSearchProps> = ({ onClose }) => {
   };
 
   return (
-    <div className="w-full flex flex-col h-[410px] bg-evry-bg rounded-b-2xl animate-slideDown overflow-hidden">
+    <div className="w-full flex flex-col h-[290px] bg-evry-bg rounded-b-2xl animate-slideDown overflow-hidden">
       {/* Search Bar Input */}
-      <div className="p-3 border-b border-evry-border flex items-center space-x-2.5">
+      <div className="p-2.5 border-b border-evry-border flex items-center space-x-2">
         <Search className="w-4 h-4 text-evry-accent" />
         <input
           ref={inputRef}
