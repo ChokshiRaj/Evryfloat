@@ -209,9 +209,6 @@ export const Teleprompter: React.FC<TeleprompterProps> = ({ onBack }) => {
           </button>
           <div className="flex items-center space-x-2">
             <span className="text-xs font-semibold text-evry-text tracking-wide">Teleprompter</span>
-            <span className="text-[9px] font-mono bg-emerald-500/10 text-emerald-400 border border-emerald-500/30 px-1.5 py-0.5 rounded">
-              Webcam Aligned
-            </span>
           </div>
         </div>
 
