@@ -1,12 +1,10 @@
 <!DOCTYPE html>
 <html lang="en" class="scroll-smooth bg-black text-zinc-100">
-
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Contact, Bug Report & Collaboration — EvryFloat</title>
-  <meta name="description"
-    content="Get in touch with EvryFloat maintainers for bug reports, feature contributions, partnerships, and collaborations.">
+  <title>Contact — EvryFloat</title>
+  <meta name="description" content="Get in touch with EvryFloat maintainers for bug reports, contributions, collaboration, and feedback.">
   <script src="https://cdn.tailwindcss.com"></script>
   <script>
     tailwind.config = {
@@ -25,35 +23,29 @@
   </script>
   <style>
     @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap');
-
     body {
       font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
       background-color: #000000;
       color: #f4f4f5;
     }
-
     .font-mono {
       font-family: 'JetBrains Mono', monospace;
     }
-
     .border-subtle {
       border-color: #1e1e22;
     }
-
     .bg-surface {
       background-color: #09090b;
     }
   </style>
 </head>
-
 <body class="bg-black text-zinc-200 antialiased selection:bg-brand selection:text-white">
 
   <!-- Header -->
   <header class="sticky top-0 z-50 w-full border-b border-subtle bg-black/90 backdrop-blur-md">
     <div class="max-w-4xl mx-auto px-6 h-14 flex items-center justify-between">
       <a href="index.html" class="flex items-center space-x-3 hover:opacity-80 transition-opacity">
-        <div
-          class="w-6 h-6 rounded-md bg-white text-black flex items-center justify-center font-bold text-xs tracking-tighter">
+        <div class="w-6 h-6 rounded-md bg-white text-black flex items-center justify-center font-bold text-xs tracking-tighter">
           EF
         </div>
         <span class="text-sm font-semibold text-white tracking-tight">EvryFloat</span>
@@ -68,113 +60,81 @@
   </header>
 
   <!-- Main Content -->
-  <main class="max-w-3xl mx-auto px-6 py-16">
-    <div class="mb-12 border-b border-subtle pb-8">
-      <span class="text-xs font-mono uppercase tracking-widest text-brand font-semibold">Community & Support</span>
-      <h1 class="text-3xl sm:text-4xl font-bold text-white mt-2 mb-3">Get in Touch</h1>
-      <p class="text-sm text-zinc-400">Report an issue, suggest improvements, submit a contribution, or discuss
-        collaboration.</p>
+  <main class="max-w-2xl mx-auto px-6 py-20">
+    <div class="mb-10 text-center">
+      <span class="text-xs font-mono uppercase tracking-widest text-brand font-semibold">Contact & Feedback</span>
+      <h1 class="text-3xl sm:text-4xl font-bold text-white mt-2 mb-3">Get in touch</h1>
+      <p class="text-xs sm:text-sm text-zinc-400 max-w-md mx-auto leading-relaxed">
+        Report a bug, contribute code or ideas, explore collaboration, or ask a question.
+      </p>
     </div>
 
-    <!-- Quick GitHub Action Cards -->
-    <div class="grid grid-cols-1 sm:grid-cols-3 gap-4 mb-10">
-      <a href="https://github.com/ChokshiRaj/Evryfloat/issues/new" target="_blank"
-        class="bg-surface p-4 rounded-xl border border-subtle hover:border-zinc-700 transition-all flex flex-col justify-between group">
-
-
-
-        <!-- Direct Contact Form -->
-        <div class="bg-surface rounded-xl border border-subtle p-6 sm:p-8">
-          <h2 class="text-base font-semibold text-white mb-1">Direct Message Form</h2>
-          <p class="text-xs text-zinc-400 mb-6">Select your inquiry type below to route your request directly to the
-            maintainers.</p>
-
-          <form id="contactForm" class="space-y-4" onsubmit="handleSubmit(event)">
-            <!-- Inquiry Category -->
-            <div>
-              <label class="block text-xs font-medium text-zinc-300 mb-1.5">Inquiry Type *</label>
-              <div class="grid grid-cols-2 sm:grid-cols-4 gap-2">
-                <label
-                  class="flex items-center space-x-2 p-2.5 rounded-lg border border-subtle bg-black cursor-pointer hover:border-zinc-700 transition-colors text-xs text-zinc-300">
-                  <input type="radio" name="topic" value="bug" checked class="text-brand focus:ring-0">
-                  <span>Bug Report</span>
-                </label>
-                <label
-                  class="flex items-center space-x-2 p-2.5 rounded-lg border border-subtle bg-black cursor-pointer hover:border-zinc-700 transition-colors text-xs text-zinc-300">
-                  <input type="radio" name="topic" value="contribution" class="text-brand focus:ring-0">
-                  <span>Contribution</span>
-                </label>
-                <label
-                  class="flex items-center space-x-2 p-2.5 rounded-lg border border-subtle bg-black cursor-pointer hover:border-zinc-700 transition-colors text-xs text-zinc-300">
-                  <input type="radio" name="topic" value="collaboration" class="text-brand focus:ring-0">
-                  <span>Collaboration</span>
-                </label>
-                <label
-                  class="flex items-center space-x-2 p-2.5 rounded-lg border border-subtle bg-black cursor-pointer hover:border-zinc-700 transition-colors text-xs text-zinc-300">
-                  <input type="radio" name="topic" value="contact" class="text-brand focus:ring-0">
-                  <span>General</span>
-                </label>
-              </div>
-            </div>
-
-            <!-- Name & Email -->
-            <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
-              <div>
-                <label class="block text-xs font-medium text-zinc-300 mb-1.5">Your Name *</label>
-                <input type="text" required placeholder="e.g. Alex Smith"
-                  class="w-full bg-black border border-subtle rounded-lg px-3 py-2 text-xs text-white placeholder-zinc-600 focus:outline-none focus:border-brand">
-              </div>
-              <div>
-                <label class="block text-xs font-medium text-zinc-300 mb-1.5">Your Email *</label>
-                <input type="email" required placeholder="alex@example.com"
-                  class="w-full bg-black border border-subtle rounded-lg px-3 py-2 text-xs text-white placeholder-zinc-600 focus:outline-none focus:border-brand">
-              </div>
-            </div>
-
-            <!-- Subject -->
-            <div>
-              <label class="block text-xs font-medium text-zinc-300 mb-1.5">Subject *</label>
-              <input type="text" required placeholder="Brief summary of your bug, proposal, or inquiry"
-                class="w-full bg-black border border-subtle rounded-lg px-3 py-2 text-xs text-white placeholder-zinc-600 focus:outline-none focus:border-brand">
-            </div>
-
-            <!-- Windows Environment (for bugs) -->
-            <div>
-              <label class="block text-xs font-medium text-zinc-300 mb-1.5">Windows Version / OS Environment
-                (Optional)</label>
-              <input type="text" placeholder="e.g. Windows 11 Build 26100, x64, Dual Monitors"
-                class="w-full bg-black border border-subtle rounded-lg px-3 py-2 text-xs text-white placeholder-zinc-600 focus:outline-none focus:border-brand">
-            </div>
-
-            <!-- Message Body -->
-            <div>
-              <label class="block text-xs font-medium text-zinc-300 mb-1.5">Details & Message *</label>
-              <textarea required rows="5"
-                placeholder="Describe the bug reproduction steps, feature proposal, contribution idea, or collaboration details..."
-                class="w-full bg-black border border-subtle rounded-lg px-3 py-2 text-xs text-white placeholder-zinc-600 focus:outline-none focus:border-brand resize-none"></textarea>
-            </div>
-
-            <!-- Submit Button -->
-            <div class="pt-2">
-              <button type="submit"
-                class="w-full sm:w-auto px-6 py-2.5 rounded-lg text-xs font-semibold bg-white text-black hover:bg-zinc-200 transition-colors">
-                Submit Message
-              </button>
-            </div>
-          </form>
-
-          <!-- Feedback Success Message -->
-          <div id="successMessage"
-            class="hidden mt-4 p-4 rounded-lg bg-blue-950/40 border border-brand/30 text-xs text-zinc-300">
-            <div class="flex items-center space-x-2 text-brand font-semibold mb-1">
-              <span>✓</span>
-              <span>Thank you for reaching out!</span>
-            </div>
-            <p>Your message has been formatted. For immediate tracking or code contributions, feel free to also open an
-              issue on our <a href="https://github.com/ChokshiRaj/Evryfloat" target="_blank"
-                class="text-white underline">GitHub repository</a>.</p>
-          </div>
+    <!-- Minimal Contact Form Card -->
+    <div class="bg-surface rounded-2xl border border-subtle p-7 sm:p-10 shadow-2xl">
+      <form id="contactForm" class="space-y-6" onsubmit="handleSubmit(event)">
+        <!-- Name -->
+        <div>
+          <label for="name" class="block text-xs font-medium text-zinc-300 mb-2">Name</label>
+          <input
+            id="name"
+            type="text"
+            required
+            placeholder="Your name"
+            class="w-full bg-[#050507] border border-zinc-800 rounded-xl px-4 py-3 text-sm text-white placeholder-zinc-600 focus:outline-none focus:border-brand focus:ring-1 focus:ring-brand transition-all"
+          >
         </div>
+
+        <!-- Email -->
+        <div>
+          <label for="email" class="block text-xs font-medium text-zinc-300 mb-2">Email</label>
+          <input
+            id="email"
+            type="email"
+            required
+            placeholder="you@example.com"
+            class="w-full bg-[#050507] border border-zinc-800 rounded-xl px-4 py-3 text-sm text-white placeholder-zinc-600 focus:outline-none focus:border-brand focus:ring-1 focus:ring-brand transition-all"
+          >
+        </div>
+
+        <!-- Message -->
+        <div>
+          <label for="message" class="block text-xs font-medium text-zinc-300 mb-2">Message</label>
+          <textarea
+            id="message"
+            required
+            rows="5"
+            placeholder="Write your bug report, contribution proposal, collaboration idea, or message here..."
+            class="w-full bg-[#050507] border border-zinc-800 rounded-xl px-4 py-3 text-sm text-white placeholder-zinc-600 focus:outline-none focus:border-brand focus:ring-1 focus:ring-brand transition-all resize-none leading-relaxed"
+          ></textarea>
+        </div>
+
+        <!-- Submit Button -->
+        <div class="pt-2">
+          <button
+            type="submit"
+            class="w-full sm:w-auto px-7 py-3 rounded-xl text-xs font-semibold bg-white text-black hover:bg-zinc-200 transition-all active:scale-95"
+          >
+            Send Message
+          </button>
+        </div>
+      </form>
+
+      <!-- Feedback Success Message -->
+      <div id="successMessage" class="hidden mt-6 p-4 rounded-xl bg-blue-950/40 border border-brand/30 text-xs text-zinc-300">
+        <div class="flex items-center space-x-2 text-brand font-semibold mb-1">
+          <span>✓</span>
+          <span>Thank you! Your message has been sent.</span>
+        </div>
+        <p class="text-zinc-400 leading-relaxed">
+          We appreciate your feedback. For tracking code issues or pull requests, you can also connect on our <a href="https://github.com/ChokshiRaj/Evryfloat" target="_blank" class="text-white underline">GitHub repository</a>.
+        </p>
+      </div>
+    </div>
+
+    <!-- GitHub Direct Alternative -->
+    <div class="mt-8 text-center text-xs text-zinc-500">
+      Prefer GitHub? You can directly open a <a href="https://github.com/ChokshiRaj/Evryfloat/issues" target="_blank" class="text-zinc-300 hover:text-white underline">bug report</a> or submit a <a href="https://github.com/ChokshiRaj/Evryfloat/pulls" target="_blank" class="text-zinc-300 hover:text-white underline">pull request</a>.
+    </div>
   </main>
 
   <!-- Footer -->
@@ -198,5 +158,4 @@
   </script>
 
 </body>
-
 </html>
